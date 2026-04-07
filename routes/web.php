@@ -10,6 +10,7 @@ use App\Http\Controllers\HomeController;
 use App\Http\Controllers\LoginController;
 use App\Http\Controllers\NotificationController;
 use App\Http\Controllers\QualificationController;
+use App\Http\Controllers\RegisterController;
 use App\Http\Controllers\ScheduleController;
 use App\Http\Controllers\StudentController;
 use App\Http\Controllers\TeacherController;
@@ -68,6 +69,13 @@ Route::middleware(['auth'])->group(function () {
         Route::get('/{guardian}', [GuardianController::class, 'show'])->name('guardians.show');
         Route::patch('/{guardian}', [GuardianController::class, 'update'])->name('guardians.update');
         Route::post('/{guardian}', [GuardianController::class, 'store'])->name('guardians.students.store');
+    });
+
+    Route::prefix('register')->group(function () {
+       Route::get('/', [RegisterController::class, 'index'])->name('register.index');
+       Route::post('/user', [RegisterController::class, 'user'])->name('user.store');
+       Route::post('/student', [RegisterController::class, 'student'])->name('student.store');
+       Route::post('/guardian', [RegisterController::class, 'guardian'])->name('guardian.store');
     });
 
     Route::prefix('attendance')->group(function () {
