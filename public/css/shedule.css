@@ -1,0 +1,21 @@
+main {
+  display: flex;
+  flex-direction: column;
+}
+
+.tabulator-row.tabulator-group {
+  background-color: #d9a8f6;
+}
+
+.tabulator-col-content {
+  background-color: #542ca3;
+  color: aliceblue;
+  font-weight: 500;
+}
+
+.active-link {
+  font-weight: 600;
+  opacity: 100%;
+}
+
+/*# sourceMappingURL=shedule.css.map */

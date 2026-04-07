@@ -1,0 +1,27 @@
+@use "variables" as *;
+
+main{
+    display: flex;
+    flex-direction: column;
+}
+
+.sort-and-filter{
+    display: flex;
+    flex-direction: column;
+    gap: 20px;
+}
+
+button{
+    font-size: small;
+}
+
+input{
+    border-radius: 8px;
+    border: 1px solid grey;
+    padding: 10px;
+}
+
+.tabulator-col-content{
+    background-color: $hover-purple;
+    color: white;
+}

@@ -1,0 +1,484 @@
+@charset "UTF-8";
+.btn {
+  font-size: 20px !important;
+}
+.btn--primary {
+  background-color: #9c2ee4 !important;
+  color: white !important;
+}
+.btn--secondary {
+  background-color: #611fb3 !important;
+  color: white !important;
+}
+.btn--outline {
+  background-color: #fff !important;
+  border: 1px solid #7120a6 !important;
+}
+.btn--outline:hover {
+  background-color: #7120a6 !important;
+  color: white !important;
+}
+.btn--link {
+  width: 15em;
+  margin: auto;
+}
+
+.bg--green {
+  background-color: #81d681 !important;
+}
+.bg--process {
+  background-color: #e8e889 !important;
+}
+.bg--danger {
+  background-color: #ef7676 !important;
+}
+.bg--info {
+  background-color: #b96aed !important;
+}
+
+* {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+  font-family: Montserrat;
+}
+
+main {
+  width: 90%;
+  margin: 20px auto;
+}
+
+/* === Responsive Header Styles === */
+header[style*="background-color: #7120A6"] {
+  background-color: #7120A6 !important;
+}
+
+/* Ссылки навигации */
+.navbar-nav .nav-link {
+  font-weight: 500;
+  padding: 0.4rem 0.5rem !important;
+  border-radius: 0.375rem;
+  transition: all 0.2s ease;
+  white-space: nowrap;
+  font-size: 1.1rem;
+}
+
+.navbar-nav .nav-link:hover,
+.navbar-nav .nav-link.active {
+  color: #fff !important;
+  background-color: rgba(255, 255, 255, 0.15);
+}
+
+.hover-white:hover {
+  color: #fff !important;
+}
+
+/* Адаптивный логотип */
+.navbar-brand svg {
+  width: 40px;
+  height: 40px;
+}
+
+@media (min-width: 1200px) {
+  .navbar-brand svg {
+    width: 56px;
+    height: 56px;
+  }
+}
+/* Мобильное меню */
+@media (max-width: 1199px) {
+  .navbar-collapse {
+    background-color: rgba(113, 32, 166, 0.98);
+    padding: 1rem;
+    border-radius: 0.5rem;
+    margin-top: 0.5rem;
+  }
+  .navbar-nav {
+    flex-direction: column;
+    gap: 0.25rem !important;
+  }
+  .navbar-nav .nav-link {
+    padding: 0.6rem 1rem !important;
+    text-align: center;
+  }
+  .navbar-collapse .d-flex {
+    justify-content: center;
+    margin-top: 1rem;
+    padding-top: 1rem;
+    border-top: 1px solid rgba(255, 255, 255, 0.1);
+  }
+}
+/* Очень маленькие экраны */
+@media (max-width: 576px) {
+  .navbar-brand span {
+    display: none !important;
+  }
+  .navbar {
+    padding: 0.5rem 0;
+  }
+  .navbar-brand svg {
+    width: 36px;
+    height: 36px;
+  }
+}
+/* Выпадающее меню профиля */
+.dropdown-menu {
+  font-size: 0.9rem;
+  animation: fadeIn 0.15s ease;
+}
+
+.dropdown-item {
+  padding: 0.4rem 1rem;
+  transition: background-color 0.15s ease;
+}
+
+.dropdown-item:hover,
+.dropdown-item.active {
+  background-color: #f8f9fa;
+  color: #7120A6;
+}
+
+@keyframes fadeIn {
+  from {
+    opacity: 0;
+    transform: translateY(-8px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+/* Плавные ховер-эффекты для ссылок */
+footer .nav-link {
+  transition: color 0.2s ease-in-out;
+}
+
+footer .nav-link:hover {
+  color: var(--bs-body-color) !important;
+}
+
+/* Адаптация логотипа */
+footer svg {
+  flex-shrink: 0;
+}
+
+/* Убираем лишние отступы на мобильных */
+@media (max-width: 768px) {
+  footer .col-6 {
+    margin-bottom: 1rem;
+  }
+}
+.tabulator-cell {
+  font-size: 20px;
+}
+
+nav {
+  display: flex;
+  flex-direction: row;
+  align-items: center;
+  justify-content: center;
+  gap: 50px;
+}
+
+p {
+  font-size: 24px;
+}
+
+nav a, nav form button {
+  color: white;
+  text-decoration: none;
+  background: none;
+  outline: none;
+  border: none;
+}
+
+a {
+  text-decoration: none;
+}
+
+.data__element {
+  border: 1px solid rgba(128, 128, 128, 0.48);
+  border-radius: 8px;
+  text-align: center;
+}
+
+/* Обёртка .row — если нужно, можно убрать отступы */
+.row {
+  margin-bottom: 8px;
+}
+
+/* Стили для details — контейнер */
+details {
+  width: 100%;
+}
+
+/* Summary — теперь это карточка */
+summary {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  background-color: #ffffff;
+  border: 1px solid #e5e7eb;
+  border-radius: 12px;
+  padding: 16px 20px;
+  cursor: pointer;
+  list-style: none;
+  transition: all 0.3s ease;
+  box-shadow: 0 1px 3px rgba(0, 0, 0, 0.05);
+  position: relative;
+  font-size: 20px !important;
+}
+
+summary:hover {
+  background-color: #f9fafb;
+  box-shadow: 0 4px 6px -1px rgba(0, 0, 0, 0.1), 0 2px 4px -1px rgba(0, 0, 0, 0.06);
+  transform: translateY(-1px);
+}
+
+summary:focus-visible {
+  outline: 2px solid #8b5cf6;
+  outline-offset: 2px;
+}
+
+/* Убираем маркер */
+summary::-webkit-details-marker {
+  display: none;
+}
+
+summary::before {
+  font-size: 14px;
+  color: #9ca3af;
+  font-weight: 500;
+  min-width: 24px;
+  margin-right: 12px;
+}
+
+/* Контент внутри details — студенты */
+details > *:not(summary) {
+  padding: 16px 20px;
+  background-color: #f9fafb;
+  border-top: 1px solid #e5e7eb;
+  border-radius: 0 0 12px 12px;
+  margin-top: 8px;
+  animation: fadeIn 0.3s ease;
+}
+
+@keyframes fadeIn {
+  from {
+    opacity: 0;
+    transform: translateY(-5px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+/* Когда details открыт — меняем стиль summary */
+details[open] > summary {
+  border-radius: 12px 12px 0 0;
+  background-color: #f3f4f6;
+  box-shadow: none;
+}
+
+/* Опционально: если много студентов — переносим на новую строку */
+details > *:not(summary) {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 8px;
+}
+
+.calendar-day.has-events {
+  cursor: pointer;
+  transition: transform 0.1s ease;
+}
+
+.calendar-day.has-events:hover {
+  transform: scale(1.05);
+  box-shadow: 0 2px 8px rgba(182, 0, 214, 0.3);
+}
+
+.calendar-grid.loading {
+  position: relative;
+  opacity: 0.6;
+  pointer-events: none;
+}
+
+.calendar-grid.loading::after {
+  content: "Загрузка...";
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  font-size: 1.2rem;
+  color: #7f3d9e;
+  z-index: 10;
+}
+
+.calendar-day {
+  animation: fadeIn 0.3s ease forwards;
+}
+
+@keyframes fadeIn {
+  from {
+    opacity: 0;
+    transform: translateY(10px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+/* Элементы боковой панели */
+.message__wrapper, #calendar-container {
+  display: flex;
+  flex-direction: column;
+  justify-content: space-around;
+  align-items: center;
+  width: 100%;
+  max-width: 500px;
+  height: auto;
+  min-height: 350px;
+  border: #7120a6 2px solid;
+  box-shadow: 0 0 5px darkgray;
+  border-radius: 20px;
+  padding: 15px;
+  margin: 0 auto;
+}
+
+.message {
+  background-color: rgb(202, 127, 236);
+  padding: 15px 10px;
+  border-radius: 8px;
+  margin: 10px 0;
+  width: 100%;
+}
+
+/* Центральные элементы */
+#today-events-block, #shedule-block {
+  border: #7120a6 2px solid;
+  box-shadow: 0 0 5px darkgray;
+  padding: 15px;
+  border-radius: 20px;
+  width: 100%;
+}
+
+#today-events-block {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 15px;
+}
+
+#today-events-block button {
+  width: 100%;
+  max-width: 300px;
+}
+
+/* Стили для таблицы расписания */
+.header-shedule {
+  display: flex;
+  flex-direction: row;
+  justify-content: space-between;
+  align-items: center;
+  gap: 15px;
+  margin-bottom: 20px;
+}
+
+.shedule-table {
+  width: 100%;
+  overflow-x: auto;
+}
+
+.shedule-table table {
+  width: 100%;
+  min-width: 600px;
+  border-collapse: collapse;
+}
+
+.shedule-table table td,
+.shedule-table table th {
+  padding: 8px;
+  border: 1px solid #ddd;
+  text-align: center;
+}
+
+.shedule-table .users-lesson {
+  background-color: #e8aeff;
+  font-weight: bold;
+}
+
+/* Календарь */
+#calendar-month-year {
+  text-align: center;
+  margin-bottom: 15px;
+}
+
+#calendar-grid {
+  display: grid;
+  grid-template-columns: repeat(7, 1fr);
+  gap: 5px;
+  width: 100%;
+}
+
+.calendar-day {
+  text-align: center;
+  padding: 10px 5px;
+  border-radius: 3px;
+  font-size: 14px;
+  min-height: 40px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.calendar-day.empty {
+  visibility: hidden;
+}
+
+.calendar-day-header {
+  font-weight: bold;
+  text-align: center;
+  padding: 5px;
+  font-size: 14px;
+}
+
+/* Медиазапросы */
+@media (min-width: 768px) {
+  /* Оптимизация календаря для планшетов */
+  #calendar-container {
+    width: 100%;
+    height: 350px;
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
+  }
+  .calendar-day {
+    font-size: 14px;
+    padding: 5px;
+  }
+}
+/* Адаптация под разные экраны */
+@media (min-width: 768px) {
+  #calendar-container {
+    max-width: 100%;
+    height: auto;
+    padding: 12px;
+  }
+  #calendar-grid {
+    gap: 3px;
+  }
+  .calendar-day,
+  .calendar-day-header {
+    font-size: 0.7rem;
+    min-height: 30px;
+  }
+}
+@media (min-width: 1200px) {
+  .calendar-day,
+  .calendar-day-header {
+    font-size: 1rem;
+    min-height: 40px;
+  }
+}
+
+/*# sourceMappingURL=main.css.map */

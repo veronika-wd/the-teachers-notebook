@@ -1,0 +1,29 @@
+main {
+  display: flex;
+  flex-direction: column;
+}
+
+.schedule-table {
+  width: 100%;
+  overflow-x: auto;
+}
+
+.schedule-table table {
+  width: 100%;
+  min-width: 600px;
+  border-collapse: collapse;
+}
+
+.schedule-table table td,
+.schedule-table table th {
+  padding: 8px;
+  border: 1px solid #ddd;
+  text-align: center;
+}
+
+.schedule-table .users-lesson {
+  background-color: #e8aeff;
+  font-weight: bold;
+}
+
+/*# sourceMappingURL=schedule.css.map */

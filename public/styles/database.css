@@ -1,0 +1,27 @@
+main{
+    display: flex;
+    flex-direction: column;
+}
+
+.sort-and-filter{
+    display: flex;
+    flex-direction: column;
+    gap: 20px;
+}
+
+.menu{
+    display: flex;
+    flex-direction: row;
+    gap: 20px;
+    justify-content: space-between;
+}
+
+button{
+    font-size: small;
+}
+
+input{
+    border-radius: 8px;
+    border: 1px solid grey;
+    padding: 10px;
+}

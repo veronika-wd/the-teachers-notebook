@@ -1,0 +1,17 @@
+.bg{
+    &--green{
+        background-color: #81d681 !important;
+    }
+
+    &--process{
+        background-color: #e8e889 !important;
+    }
+
+    &--danger{
+        background-color: #ef7676 !important;
+    }
+
+    &--info{
+        background-color: #b96aed !important;
+    }
+}

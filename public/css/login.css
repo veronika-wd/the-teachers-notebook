@@ -1,0 +1,21 @@
+.auth-form {
+  background: white;
+  padding: 30px;
+  border-radius: 10px;
+  box-shadow: 0 4px 15px rgba(106, 48, 147, 0.2);
+  text-align: center;
+}
+
+.input-group input:focus {
+  border-color: #9d50bb;
+  box-shadow: 0 0 5px #b399d4;
+  outline: none;
+}
+
+.error {
+  color: #ff3860;
+  font-size: 14px;
+  margin-top: 5px;
+}
+
+/*# sourceMappingURL=login.css.map */

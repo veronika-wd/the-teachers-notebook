@@ -1,0 +1,170 @@
+*{
+    margin: 0;
+    padding: 0;
+    font-family: Montserrat;
+}
+
+body{
+    overflow-x: hidden;
+}
+
+main{
+    width: 80%;
+    margin: auto;
+    overflow-x: hidden;
+}
+
+
+/* шапка */
+header{
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    gap: 20px;
+    width: 100%;
+    height: 80vh;
+    background: linear-gradient(135deg, purple, pink);
+    color: #e8e8e8;
+}
+
+header p{
+    text-align: center;
+}
+
+button{
+    padding: 10px 25px;
+    border: none;
+    border-radius: 8px;
+    font-size: 15px;
+    color: #e8e8e8;
+    background-color: purple;
+    transition: all 0.5s ease-in-out;
+}
+
+button:hover{
+    box-shadow: 0px 0px 25px rgb(99, 6, 72);
+    background-color: #7d1d95;
+}               
+
+/* слайдер школы */
+
+.swiper-school .swiper-wrapper{
+    width: 500px;
+    height: 350px;
+}
+
+.about-block:nth-child(1), .about-block:nth-child(3){
+    opacity: 0;
+    transform: translateX(30px);
+    transition: all 0.3s ease-in-out;
+}
+
+.about-block:nth-child(2), .about-block:nth-child(4){
+    opacity: 0;
+    transform: translateX(-30px);
+    transition: all 0.7s ease-in-out;
+}
+
+.about-block.active{
+    opacity: 1;
+    transform: translateX(0);
+    transition: all 0.7s ease-in-out;
+}
+
+.swiper-pagination-cards, .swiper-pagination-school{
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    padding: 20px;
+}
+
+
+.swiper-slide img{
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+}
+
+
+/* слайдер карточек */
+h2{
+    padding: 20px 0;
+}
+
+.swiper-staff.swiper-slide{
+    width: 350px;
+    margin: auto;
+    height: 400px;
+}
+
+.card{
+    display: flex;
+    flex-direction: row;
+    align-items: center;
+    justify-content: center;
+    border-radius: 40px;
+    background-color: #e8e8e8;
+    padding: 20px;
+}
+
+.swiper-slide-shadow-left, .swiper-slide-shadow-right{
+    border-radius: 40px;
+}
+
+.card-img{
+    width: 200px;
+    height: 200px;
+    border-radius: 50%;
+    overflow: hidden;
+}
+
+.card-text{
+    width: 60%;
+    padding: 20px;
+}
+
+
+/* блок о платофрме */
+p{
+    margin: 20px 0;
+}
+
+/* футер сайта */
+footer{
+    width: 100%;
+    height: auto;
+    background: linear-gradient(135deg, purple, pink);
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    color: aliceblue;
+}
+
+.contacts{
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+}
+
+.contacts p{
+    margin: 10px;
+}
+
+/* адаптив */
+
+@media screen and (max-width: 768px){
+    .card{
+        display: flex;
+        flex-direction: column;
+    }
+
+    .card-text{
+        text-align: center;
+    }
+    
+    body{
+        overflow-x: hidden;
+    }
+}
