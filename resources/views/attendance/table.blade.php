@@ -82,7 +82,7 @@
             <li class="nav-item" role="presentation">
                 <button class="nav-link active" id="attendance-tab" data-bs-toggle="tab"
                         data-bs-target="#attendance" type="button" role="tab">
-                    Журнал посещаемости
+                    Журнал столовой
                 </button>
             </li>
             <li class="nav-item" role="presentation">

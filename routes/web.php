@@ -9,6 +9,7 @@ use App\Http\Controllers\GuardianController;
 use App\Http\Controllers\HomeController;
 use App\Http\Controllers\LoginController;
 use App\Http\Controllers\NotificationController;
+use App\Http\Controllers\PlanController;
 use App\Http\Controllers\QualificationController;
 use App\Http\Controllers\RegisterController;
 use App\Http\Controllers\ScheduleController;
@@ -42,9 +43,7 @@ Route::middleware(['auth', AdminMiddleware::class])->group(function () {
 
 Route::middleware(['auth'])->group(function () {
     Route::get('/home', [HomeController::class, 'index'])->name('home');
-    Route::get('/calendar', function () {
-        return view('calendar');
-    })->name('calendar');
+    Route::get('/calendar', [PlanController::class, 'index'])->name('calendar');
     Route::get('/schedule', [ScheduleController::class, 'index'])->name('schedule.index');
     Route::get('/database', [StudentController::class, 'database'])->name('database.index');
 
@@ -87,7 +86,7 @@ Route::middleware(['auth'])->group(function () {
     });
     Route::prefix('qualifications')->group(function () {
         Route::get('/', [QualificationController::class, 'index'])->name('qualifications.index');
-        Route::post('/create', [QualificationController::class, 'store'])->name('qualifications.store');
+        Route::post('/create', [QualificationController::class, 'store'])->name('qualifications.create');
     });
 
     Route::prefix('competitions')->group(function () {
@@ -101,6 +100,11 @@ Route::middleware(['auth'])->group(function () {
         Route::get('/', [DocumentController::class, 'index'])->name('documents.index');
         Route::get('/{document}/download', [DocumentController::class, 'download'])->name('documents.download');
     });
+    Route::post('/add-plan', [PlanController::class, 'addPlan'])->name('plan');
+
+    Route::get('/schedule/replace', [ScheduleController::class, 'showReplaceForm'])->name('schedule.replace.form');
+    Route::post('/schedule/replace', [ScheduleController::class, 'replace'])->name('schedule.replace');
+    Route::post('/schedule/clear', [ScheduleController::class, 'clear'])->name('schedule.clear');
 
 });
 

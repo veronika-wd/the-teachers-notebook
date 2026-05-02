@@ -36,7 +36,7 @@
         <div class="col-lg-8">
             <div id="today-events-block" class="events__wrapper mb-3">
                 <h2 class="events__header">События на сегодня</h2>
-                @if($events)
+                @if(!$events)
                     <p class="events__info">Событий на сегодня нет</p>
                 @endif
                 @foreach($events as $event)

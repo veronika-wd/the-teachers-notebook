@@ -27,14 +27,14 @@
             <h3>Участники</h3>
             <hr>
             <h4>Добавить ребенка</h4>
-            <form action="{{ route('competitions.addStudent', $competition) }}" method="post" class="w-50 d-flex gap-3 align-items-center justify-content-start mb-3">
+            <form action="{{ route('competitions.addStudent', $competition) }}" method="post" class="w-100 d-flex gap-3 align-items-center justify-content-start mb-3">
                 @csrf
-                <select name="student" id="student" class="form-control w-75">
+                <select name="student" id="student" class="form-control w-100">
                     @foreach($studentsAll as $student)
                         <option value="{{ $student->id }}">{{ $student->name }}</option>
                     @endforeach
                 </select>
-                <button type="submit" class="btn btn--primary w-25">Добавить ребенка</button>
+                <button type="submit" class="btn btn--primary w-100">Добавить ребенка</button>
             </form>
             <div class="row g-2">
                 @foreach($students as $student)

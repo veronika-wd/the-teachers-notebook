@@ -19,9 +19,6 @@ class EventController extends Controller
             $query->whereBetween('date_start', [$request->start, $request->end]);
         }
 
-// Если нужна привязка к пользователю:
-// $query->where('user_id', Auth::id());
-
         $events = $query->get()->map->toCalendarFormat();
 
         return response()->json($events);
@@ -96,10 +93,8 @@ class EventController extends Controller
         $eventsCount = Event::selectRaw('DATE(date_start) as date, COUNT(*) as count')
             ->whereYear('date_start', $year)
             ->whereMonth('date_start', $month)
-            // Если нужна привязка к пользователю:
-            // ->where('user_id', Auth::id())
             ->groupBy('date')
-            ->pluck('count', 'date'); // возвращает коллекцию ['2026-03-01' => 3, ...]
+            ->pluck('count', 'date');
 
         return response()->json($eventsCount);
     }

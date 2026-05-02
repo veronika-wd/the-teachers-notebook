@@ -24,7 +24,7 @@ return new class extends Migration
             $table->string('phone', 20); // Телефон
             $table->string('education', 255); // Образование
             $table->string('qualification', 100)->nullable(); // Квалификационная категория (может отсутствовать)
-            $table->integer('experience');
+            $table->integer('experience'); // Стаж работы
             $table->string('address', 255); // Адрес проживания
             $table->string('role');
             $table->timestamps(); // created_at и updated_at

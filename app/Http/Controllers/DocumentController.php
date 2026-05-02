@@ -2,12 +2,14 @@
 
 namespace App\Http\Controllers;
 
+use App\Http\Services\UploadService;
 use App\Models\Document;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Storage;
 
 class DocumentController extends Controller
 {
+
     // Показать страницу со списком документов
     public function index()
     {

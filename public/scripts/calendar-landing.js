@@ -1,34 +1,20 @@
-/**
- * Календарь событий с подсветкой дней рождения 🎂
- * Подгружает данные из Laravel API:
- *   - /api/events/counts — количество событий по дням
- *   - /api/events/birthdays — список именинников по дням месяца
- */
-
 document.addEventListener('DOMContentLoaded', function() {
-    // === КОНФИГУРАЦИЯ ===
-    const CONFIG = {
-        api_url: '/api/events/counts',              // Эндпоинт для событий
-        birthdays_endpoint: '/api/events/birthdays', // Эндпоинт для дней рождения
-        debug: true,                                 // Включите false в продакшене
-        cake_emoji: '🎂'                             // Символ тортика
+        const CONFIG = {
+        api_url: '/api/events/counts',
+        birthdays_endpoint: '/api/events/birthdays',
+        debug: true,
+        cake_emoji: '🎂'
     };
 
-    // === ЭЛЕМЕНТЫ DOM ===
+
     const calendarGrid = document.getElementById('calendar-grid');
     const monthYearEl = document.getElementById('calendar-month-year');
     const prevMonthBtn = document.getElementById('prev-month');
     const nextMonthBtn = document.getElementById('next-month');
 
-    // === ТЕКУЩЕЕ СОСТОЯНИЕ ===
     let currentYear = new Date().getFullYear();
     let currentMonth = new Date().getMonth(); // 0-11
 
-    // === ВСПОМОГАТЕЛЬНЫЕ ФУНКЦИИ ===
-
-    /**
-     * Логирование (включается через CONFIG.debug)
-     */
     function log(...args) {
         if (CONFIG.debug) {
             console.log('[Calendar]', ...args);
@@ -76,7 +62,7 @@ document.addEventListener('DOMContentLoaded', function() {
     }
 
     /**
-     * 🎂 Формирует текст тултипа для дней рождения
+     * Формирует текст тултипа для дней рождения
      */
     function getBirthdayTooltip(names) {
         if (!Array.isArray(names) || names.length === 0) return '';
@@ -84,8 +70,6 @@ document.addEventListener('DOMContentLoaded', function() {
         if (names.length === 2) return `🎂 Дни рождения: ${names.join(' и ')}`;
         return `🎂 Дни рождения: ${names.slice(0, 2).join(', ')} и ещё ${names.length - 2}`;
     }
-
-    // === ЗАГРУЗКА ДАННЫХ С СЕРВЕРА ===
 
     /**
      * Загружает события и дни рождения параллельно с двух эндпоинтов
@@ -96,10 +80,10 @@ document.addEventListener('DOMContentLoaded', function() {
         const eventsUrl = `${CONFIG.api_url}?year=${year}&month=${apiMonth}`;
         const birthdaysUrl = `${CONFIG.birthdays_endpoint}?year=${year}&month=${apiMonth}`;
 
-        log('📡 Запросы:', { events: eventsUrl, birthdays: birthdaysUrl });
+        log('Запросы:', { events: eventsUrl, birthdays: birthdaysUrl });
 
         try {
-            // 🔄 Параллельные запросы
+            // Параллельные запросы
             const [eventsResponse, birthdaysResponse] = await Promise.all([
                 fetch(eventsUrl, {
                     method: 'GET',
@@ -121,14 +105,14 @@ document.addEventListener('DOMContentLoaded', function() {
                 })
             ]);
 
-            // 📦 Парсим ответы
+            // Парсим ответы
             const eventsData = eventsResponse.ok ? await eventsResponse.json() : {};
             const birthdaysData = birthdaysResponse.ok ? await birthdaysResponse.json() : {};
 
-            log('✅ События получены:', eventsData);
-            log('✅ Дни рождения получены:', birthdaysData);
+            log('События получены:', eventsData);
+            log('Дни рождения получены:', birthdaysData);
 
-            // 🎂 Нормализуем формат событий (если пришёл массив)
+            // Нормализуем формат событий (если пришёл массив)
             let normalizedEvents = eventsData;
             if (Array.isArray(eventsData)) {
                 normalizedEvents = {};
@@ -141,27 +125,25 @@ document.addEventListener('DOMContentLoaded', function() {
 
             return {
                 events: normalizedEvents,
-                birthdays: birthdaysData // Ожидаем формат: { "5": ["Имя"], "20": ["Имя2"] }
+                birthdays: birthdaysData
             };
 
         } catch (error) {
-            console.error('❌ Ошибка загрузки данных:', error);
+            console.error('Ошибка загрузки данных:', error);
             return { events: {}, birthdays: {} };
         }
     }
 
-    // === ОТРИСОВКА КАЛЕНДАРЯ ===
-
     /**
-     * Генерирует сетку календаря с цветными ячейками и тортиками 🎂
+     * Генерирует сетку календаря с цветными ячейками и тортиками
      */
     function generateCalendar(year, month, data) {
         const eventsData = data.events || {};
         const birthdays = data.birthdays || {};
 
-        log('🎨 Отрисовка календаря:', year, month + 1);
-        log('📦 Данные событий:', eventsData);
-        log('🎂 Данные дней рождения:', birthdays);
+        log('Отрисовка календаря:', year, month + 1);
+        log('Данные событий:', eventsData);
+        log('Данные дней рождения:', birthdays);
 
         const monthNames = [
             "Январь", "Февраль", "Март", "Апрель", "Май", "Июнь",
@@ -188,7 +170,7 @@ document.addEventListener('DOMContentLoaded', function() {
             calendarGrid.innerHTML = '';
         }
 
-        // === Заголовки дней недели ===
+        // Заголовки дней недели
         dayNames.forEach(day => {
             const dayElement = document.createElement('div');
             dayElement.className = 'calendar-day-header';
@@ -196,14 +178,14 @@ document.addEventListener('DOMContentLoaded', function() {
             calendarGrid.appendChild(dayElement);
         });
 
-        // === Пустые ячейки до первого дня месяца ===
+        // Пустые ячейки до первого дня месяца
         for (let i = 0; i < startingDay; i++) {
             const emptyDay = document.createElement('div');
             emptyDay.className = 'calendar-day empty';
             calendarGrid.appendChild(emptyDay);
         }
 
-        // === Дни месяца ===
+        // Дни месяца
         let coloredCount = 0;
         let birthdayCount = 0;
 
@@ -213,10 +195,10 @@ document.addEventListener('DOMContentLoaded', function() {
 
             // Получаем данные
             const eventCount = eventsData[dateString] || 0;
-            const birthdayNames = birthdays[String(day)] || []; // 🔑 Ключи в JSON всегда строки!
+            const birthdayNames = birthdays[String(day)] || [];
             const isBirthday = birthdayNames.length > 0;
 
-            // 🔍 Отладка первых 5 дней
+            // Отладка первых 5 дней
             if (CONFIG.debug && day <= 5) {
                 log(`📅 День ${day}:`, {
                     dateString: dateString,
@@ -233,7 +215,7 @@ document.addEventListener('DOMContentLoaded', function() {
             dayElement.textContent = day;
             dayElement.dataset.date = dateString;
 
-            // 🎂 Обработка дня рождения
+            // Обработка дня рождения
             if (isBirthday) {
                 birthdayCount++;
                 dayElement.classList.add('has-birthday');
@@ -255,7 +237,7 @@ document.addEventListener('DOMContentLoaded', function() {
                 dayElement.style.boxShadow = 'inset 0 0 0 2px rgba(255, 107, 157, 0.3)';
             }
 
-            // 📅 Обработка обычных событий
+            // Обработка обычных событий
             if (eventCount > 0) {
                 const color = getColorForCount(eventCount);
                 dayElement.style.backgroundColor = color;
@@ -277,7 +259,7 @@ document.addEventListener('DOMContentLoaded', function() {
                     showEventsForDate(dateString, eventCount, birthdayNames);
                 });
             } else if (isBirthday) {
-                // Если только ДР без событий — тоже делаем кликабельным
+                // Если только ДР без событий
                 dayElement.addEventListener('click', function() {
                     showBirthdayDetails(dateString, birthdayNames);
                 });
@@ -294,50 +276,33 @@ document.addEventListener('DOMContentLoaded', function() {
             calendarGrid.appendChild(dayElement);
         }
 
-        // Убираем индикатор загрузки
         if (calendarGrid) {
             calendarGrid.classList.remove('loading');
         }
 
-        log(`✅ Календарь отрисован. Событий: ${coloredCount}, Дней рождения: ${birthdayCount}`);
+        log(`Календарь отрисован. Событий: ${coloredCount}, Дней рождения: ${birthdayCount}`);
     }
 
-    // === ВСПОМОГАТЕЛЬНЫЕ ДЕЙСТВИЯ ===
-
-    /**
-     * Показывает события за выбранную дату
-     */
     function showEventsForDate(dateString, count, birthdayNames = []) {
-        log(`📋 События за ${dateString}: ${count}`);
+        log(`События за ${dateString}: ${count}`);
 
-        let message = `📅 ${dateString}\n`;
+        let message = `${dateString}\n`;
         if (count > 0) {
             message += `${getEventTitle(count)}\n`;
         }
         if (birthdayNames.length > 0) {
-            message += `\n🎂 Именинники:\n${birthdayNames.join('\n')}`;
+            message += `\n Именинники:\n${birthdayNames.join('\n')}`;
         }
 
         alert(message);
-
-        // Здесь можно открыть модальное окно или сделать запрос к API
-        // fetch(`/api/events?date=${dateString}`)
-        //     .then(r => r.json())
-        //     .then(events => openModal(events, birthdayNames));
     }
 
-    /**
-     * Показывает детали дня рождения (если нет событий)
-     */
     function showBirthdayDetails(dateString, names) {
-        log(`🎂 Дни рождения за ${dateString}:`, names);
-        alert(`🎂 ${dateString}\n\nИменинники:\n${names.join('\n')}`);
+        log(`Дни рождения за ${dateString}:`, names);
+        alert(`${dateString}\n\nИменинники:\n${names.join('\n')}`);
     }
-
-    // === НАВИГАЦИЯ ПО МЕСЯЦАМ ===
-
     /**
-     * Переключает месяц и перерисовывает календарь
+     * Переключаем месяц и перерисовываем календарь
      */
     async function changeMonth(delta) {
         currentMonth += delta;
@@ -350,7 +315,7 @@ document.addEventListener('DOMContentLoaded', function() {
             currentYear++;
         }
 
-        log('🔄 Переключение месяца:', currentYear, currentMonth + 1);
+        log('Переключение месяца:', currentYear, currentMonth + 1);
         await renderCalendar();
     }
 
@@ -361,23 +326,20 @@ document.addEventListener('DOMContentLoaded', function() {
         const data = await loadCalendarData(currentYear, currentMonth);
         generateCalendar(currentYear, currentMonth, data);
     }
-
-    // === ИНИЦИАЛИЗАЦИЯ ===
-
     /**
      * Запускает календарь после загрузки страницы
      */
     async function init() {
-        log('🚀 Инициализация календаря...');
+        log('Инициализация календаря...');
 
         // Проверяем наличие элементов
         if (!calendarGrid) {
-            console.error('❌ Элемент #calendar-grid не найден!');
+            console.error('Элемент #calendar-grid не найден!');
             return;
         }
 
         if (!monthYearEl) {
-            console.warn('⚠️ Элемент #calendar-month-year не найден!');
+            console.warn('Элемент #calendar-month-year не найден!');
         }
 
         // Навешиваем обработчики кнопок
@@ -394,7 +356,7 @@ document.addEventListener('DOMContentLoaded', function() {
         // Первая отрисовка
         await renderCalendar();
 
-        log('✅ Календарь готов!');
+        log('Календарь готов!');
     }
 
     // Запуск

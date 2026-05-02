@@ -17,11 +17,11 @@
         </div>
         <div class="form-group">
             <label for="dateStart">Дата начала:</label>
-            <input type="date" name="date_start" id="dateStart" required>
+            <input type="date" name="date_start" id="dateStart" class="form-control" required>
         </div>
         <div class="form-group">
-            <label for="dateEnd">Дата начала:</label>
-            <input type="date" name="date_end" id="dateEnd" required>
+            <label for="dateEnd">Дата окончания:</label>
+            <input type="date" name="date_end" id="dateEnd" class="form-control" required>
         </div>
         <button type="submit" class="btn btn--primary">Добавить</button>
     </form>

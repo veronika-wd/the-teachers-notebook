@@ -2,6 +2,7 @@
 
 namespace App\Http\Services;
 
+use App\Models\Plan;
 use Illuminate\Http\Request;
 
 class UploadService
@@ -38,6 +39,15 @@ class UploadService
         $image = $request->file('img');
         $imageName = uniqid('qual_') . '.' . $image->extension();
         $path = $image->storeAs('qualifications', $imageName, 'public');
+
+        return $path;
+    }
+
+    public function uploadPlan(Request $request)
+    {
+        $image = $request->file('file');
+        $imageName = uniqid('plan_') . '.' . $image->extension();
+        $path = $image->storeAs('plans', $imageName, 'public');
 
         return $path;
     }
