@@ -100,7 +100,7 @@
                     </li>
 
                     <!-- Админ-ссылки (только для админов) -->
-                    @if(auth()->check() && auth()->user()->is_admin)
+                    @admin
                         <li class="nav-item">
                             <a class="nav-link text-white-50 hover-white {{ request()->routeIs('qualifications.*') ? 'active text-white fw-semibold' : '' }}"
                                href="{{ route('qualifications.all') }}">Квалификации</a>
@@ -109,7 +109,7 @@
                             <a class="nav-link text-white-50 hover-white {{ request()->routeIs('achievements.*') ? 'active text-white fw-semibold' : '' }}"
                                href="{{ route('achievements.all') }}">Достижения</a>
                         </li>
-                    @endif
+                    @endadmin
                 </ul>
 
                 <!-- Правая часть: Профиль и выход -->
@@ -132,8 +132,6 @@
                                 </li>
                             </ul>
                         </div>
-                    @else
-                        <a href="{{ route('login.form') }}" class="btn btn-light btn-sm fw-medium">Войти</a>
                     @endauth
                 </div>
             </div>
@@ -213,7 +211,10 @@
                 <h6 class="fw-semibold mb-3">Документы</h6>
                 <ul class="nav flex-column gap-2">
                     <li><a href="{{ route('documents.index') }}" class="nav-link p-0 text-body-secondary link-underline-opacity-0 link-underline-opacity-100-hover">Все документы</a></li>
-                    <li><a href="{{ route('notifications.index') }}" class="nav-link p-0 text-body-secondary link-underline-opacity-0 link-underline-opacity-100-hover">Уведомления</a></li>
+                    <li><a href="{{ route('notifications.index') }}" class="nav-link p-0 text-body-secondary link-underline-opacity-0 link-underline-opacity-100-hover">Объявления</a></li>
+                    @admin
+                    <li><a href="{{ route('register.index') }}" class="nav-link p-0 text-body-secondary link-underline-opacity-0 link-underline-opacity-100-hover">Добавить пользователя</a></li>
+                    @endadmin
                     <li><a href="{{ route('cabinet.index') }}" class="nav-link p-0 text-body-secondary link-underline-opacity-0 link-underline-opacity-100-hover">Личный кабинет</a></li>
                 </ul>
             </div>

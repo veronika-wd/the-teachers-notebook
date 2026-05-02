@@ -102,7 +102,7 @@
 
     <div class="col-sm-12 col-lg-3">
         <label for="class" class="form-label">Класс</label>
-        <select name="class" id="class">
+        <select name="class" id="class" class="form-select">
             @foreach($classes as $class)
                 <option value="{{ $class->id }}">{{ $class->name }}</option>
             @endforeach
