@@ -73,7 +73,9 @@ class EventController extends Controller
 
     public function destroy(Event $event)
     {
-// Проверка прав: $event->user_id !== Auth::id()
+        if($event->user_id !== Auth::id()){
+            return redirect()->back();
+        }
         $event->delete();
 
         return response()->json(null, 204);

@@ -154,7 +154,7 @@
                                                 Скачать
                                             </a>
 
-                                            <!-- Простая кнопка удаления без подтверждения -->
+                                            @admin
                                             <form action="{{ route('competitions.deleteFile', $file->id) }}"
                                                   method="POST"
                                                   style="display: inline-block;">
@@ -166,6 +166,7 @@
                                                     X
                                                 </button>
                                             </form>
+                                            @endadmin
                                         </td>
                                     </tr>
                                 @endforeach

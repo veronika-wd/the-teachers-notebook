@@ -33,7 +33,6 @@ Route::middleware(['auth', AdminMiddleware::class])->group(function () {
     Route::get('/competitions/create', [CompetitionController::class, 'create'])->name('competitions.create');
     Route::post('/competitions', [CompetitionController::class, 'store'])->name('competitions.store');// Новые маршруты для файлов конкурсов
     Route::post('/competitions/{competition}/upload-file', [CompetitionController::class, 'uploadFile'])->name('competitions.uploadFile');
-    Route::get('/competitions/files/{file}/download', [CompetitionController::class, 'downloadFile'])->name('competitions.downloadFile');
     Route::delete('/competitions/files/{file}', [CompetitionController::class, 'deleteFile'])->name('competitions.deleteFile');
     Route::post('/documents', [DocumentController::class, 'store'])->name('documents.store');
     Route::delete('/documents/{document}', [DocumentController::class, 'destroy'])->name('documents.destroy');
@@ -42,6 +41,8 @@ Route::middleware(['auth', AdminMiddleware::class])->group(function () {
 });
 
 Route::middleware(['auth'])->group(function () {
+    Route::get('/competitions/files/{file}/download', [CompetitionController::class, 'downloadFile'])->name('competitions.downloadFile');
+
     Route::get('/home', [HomeController::class, 'index'])->name('home');
     Route::get('/calendar', [PlanController::class, 'index'])->name('calendar');
     Route::get('/schedule', [ScheduleController::class, 'index'])->name('schedule.index');
