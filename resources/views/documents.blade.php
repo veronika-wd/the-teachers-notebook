@@ -148,7 +148,9 @@
                             <div class="text-center py-5">
                                 <i class="bi bi-folder2-open display-1 text-muted"></i>
                                 <h5 class="mt-3 text-muted">Документы не загружены</h5>
+                                @admin
                                 <p class="text-muted">Загрузите первый документ, используя форму выше</p>
+                                @endadmin
                             </div>
                         @endif
                     </div>
