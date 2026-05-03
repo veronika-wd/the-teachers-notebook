@@ -13,10 +13,9 @@ button {
   font-size: small;
 }
 
-input {
-  border-radius: 8px;
-  border: 1px solid grey;
-  padding: 10px;
+.search {
+  height: 100% !important;
+  border: 1px solid #611fb3 !important;
 }
 
 .tabulator-col-content {

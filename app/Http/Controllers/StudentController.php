@@ -19,7 +19,10 @@ class StudentController extends Controller
     }
 
     public function index() {
-        $classes = SchoolClass::all();
+        $classes = SchoolClass::all()->sortBy(function($class) {
+            preg_match('/^\d+/', $class->name, $matches);
+            return $matches[0] ?? 0;
+        })->values();
         $students = [];
         foreach ($classes as $class) {
             $students[$class->name] = Student::where('class', $class->id)->get();

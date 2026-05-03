@@ -77,11 +77,16 @@ class HomeController extends Controller
         }
 
         $notifications = Notification::query()->orderByDesc('created_at')->limit(2)->get();
+        $classes = SchoolClass::all()->sortBy(function($class) {
+            preg_match('/^\d+/', $class->name, $matches);
+            return $matches[0] ?? 0;
+        })->values();
 
         return view('home', [
             'events' => $events,
             'shedule' => $schedule,
             'notifications' => $notifications,
+            'classes' => $classes,
         ]);
     }
 

@@ -20,7 +20,10 @@ class AttendanceController extends Controller
 
     public function index()
     {
-        $classes = SchoolClass::all();
+        $classes = SchoolClass::all()->sortBy(function($class) {
+            preg_match('/^\d+/', $class->name, $matches);
+            return $matches[0] ?? 0;
+        })->values();
         return view('attendance.index', compact('classes'));
     }
 

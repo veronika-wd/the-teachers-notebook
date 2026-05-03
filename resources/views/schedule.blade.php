@@ -37,10 +37,9 @@
         <table>
             <thead>
             <tr>
-                <th>1 класс</th>
-                <th>2 класс</th>
-                <th>3 класс</th>
-                <th>4 класс</th>
+                @foreach($primaryClasses as $class)
+                    <th>{{ $class->name }} класс</th>
+                @endforeach
             </tr>
             </thead>
             <tbody>
@@ -58,13 +57,9 @@
     <table>
         <thead>
         <tr>
-            <th>5 класс</th>
-            <th>6 класс</th>
-            <th>7 класс</th>
-            <th>8 класс</th>
-            <th>9 класс</th>
-            <th>10 класс</th>
-            <th>11 класс</th>
+            @foreach($highClasses as $class)
+                <th>{{ $class->name }} класс</th>
+            @endforeach
         </tr>
         </thead>
         <tbody>

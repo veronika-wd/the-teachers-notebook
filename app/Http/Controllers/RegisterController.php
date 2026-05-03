@@ -5,6 +5,7 @@ namespace App\Http\Controllers;
 use App\Models\Guardian;
 use App\Models\SchoolClass;
 use App\Models\Student;
+use App\Models\Subject;
 use App\Models\User;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Hash;
@@ -13,9 +14,14 @@ class RegisterController extends Controller
 {
     public function index()
     {
-        $classes = SchoolClass::all();
+        $classes = SchoolClass::all()->sortBy(function($class) {
+            preg_match('/^\d+/', $class->name, $matches);
+            return $matches[0] ?? 0;
+        })->values();
+        $subjects = Subject::orderByDesc('id')->get();
         return view('add-users', [
-            'classes' => $classes
+            'classes' => $classes,
+            'subjects' => $subjects,
         ]);
     }
 
@@ -70,4 +76,34 @@ class RegisterController extends Controller
 
         return redirect()->back();
     }
+
+    public function createSubject(Request $request)
+    {
+        Subject::create([
+            'name' => $request->name,
+        ]);
+        return redirect()->back();
+    }
+
+    public function deleteSubject(Subject $subject)
+    {
+        $subject->delete();
+        return redirect()->back();
+    }
+
+    public function createClass(Request $request)
+    {
+        SchoolClass::create([
+            'name' => $request->name,
+        ]);
+        return redirect()->back();
+    }
+
+    public function deleteClass(SchoolClass $class)
+    {
+        $class->delete();
+        return redirect()->back();
+    }
+
+
 }

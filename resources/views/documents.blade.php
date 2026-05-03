@@ -125,7 +125,7 @@
                                                    title="Скачать">Скачать
                                                 </a>
 
-                                                <!-- Простая кнопка удаления -->
+                                                @admin
                                                 <form action="{{ route('documents.destroy', $doc->id) }}"
                                                       method="POST"
                                                       style="display: inline-block;">
@@ -137,6 +137,7 @@
                                                         X
                                                     </button>
                                                 </form>
+                                                @endadmin
                                             </td>
                                         </tr>
                                     @endforeach

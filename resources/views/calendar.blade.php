@@ -23,7 +23,7 @@
                 <form action="{{ route('plan') }}" method="POST"
                       enctype="multipart/form-data">
                     @csrf
-                    <div class="row align-items-center">
+                    <div class="row align-items-end">
                         <div class="col-md-8 mb-3 mb-md-0">
                             <label for="file" class="form-label">Выберите файл</label>
                             <input type="file"
@@ -48,7 +48,7 @@
         </div>
         @endadmin
         @if($plan)
-        <img src="{{ \Illuminate\Support\Facades\Storage::url($plan->path) }}" alt="plan">
+        <img src="{{ \Illuminate\Support\Facades\Storage::url($plan->path) }}" alt="plan" class="d-flex justify-content-center w-100">
         @endif
         <!-- Модальное окно для добавления/редактирования события -->
         <div id="eventModal" class="modal">

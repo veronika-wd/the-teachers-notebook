@@ -9,13 +9,30 @@
     <hr>
     <div class="sort-and-filter mb-3">
         <div class="menu">
-            <button id="teachers" class="btn btn--secondary" data-db="teachers">Перейти к учителям</button>
-            <button id="pupils" class="btn btn--secondary" data-db="pupils">Перейти к ученикам</button>
-            <button id="guardians" class="btn btn--secondary" data-db="guardians">Перейти к родителям</button>
+            <div class="row g-2">
+                @admin
+                <div class="col-sm-12 col-lg-4">
+                    <button id="teachers" class="btn btn--secondary w-100" data-db="teachers">Перейти к учителям</button>
+                </div>
+                @endadmin
+                <div class="col-sm-12 col-lg-4">
+                    <button id="pupils" class="btn btn--secondary w-100" data-db="pupils">Перейти к ученикам</button>
+                </div>
+                <div class="col-sm-12 col-lg-4">
+                    <button id="guardians" class="btn btn--secondary w-100" data-db="guardians">Перейти к родителям</button>
+                </div>
+                <div class="col-sm-12 col-lg-4">
+                    <input type="search" id="searchInput" name="search" class="form-control w-100 search" placeholder="Поиск">
+                </div>
+                <div class="col-sm-12 col-lg-4">
+                    <button id="orderByClass" class="btn btn--primary w-100">Сортировать по классам</button>
+                </div>
+                <div class="col-sm-12 col-lg-4">
+                    <button id="orderBySurname" class="btn btn--primary w-100">Сортировать по фамилии</button>
+                </div>
 
-            <button id="orderByClass" class="btn btn--primary">Сортировать по классам</button>
-            <button id="orderBySurname" class="btn btn--primary">Сортировать по фамилии</button>
-            <input type="search" id="searchInput" name="search" placeholder="Поиск">
+            </div>
+
         </div>
     </div>
     <div id="database-table"></div>

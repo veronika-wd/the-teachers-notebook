@@ -98,18 +98,6 @@
                         <a class="nav-link text-white-50 hover-white {{ request()->routeIs('documents.*') ? 'active text-white fw-semibold' : '' }}"
                            href="{{ route('documents.index') }}">Документы</a>
                     </li>
-
-                    <!-- Админ-ссылки (только для админов) -->
-                    @admin
-                        <li class="nav-item">
-                            <a class="nav-link text-white-50 hover-white {{ request()->routeIs('qualifications.*') ? 'active text-white fw-semibold' : '' }}"
-                               href="{{ route('qualifications.all') }}">Квалификации</a>
-                        </li>
-                        <li class="nav-item">
-                            <a class="nav-link text-white-50 hover-white {{ request()->routeIs('achievements.*') ? 'active text-white fw-semibold' : '' }}"
-                               href="{{ route('achievements.all') }}">Достижения</a>
-                        </li>
-                    @endadmin
                 </ul>
 
                 <!-- Правая часть: Профиль и выход -->
@@ -180,7 +168,7 @@
                     <span class="fs-5 fw-semibold">Блокнот Учителя</span>
                 </a>
                 <p class="text-body-secondary small mb-0">
-                    Удобный инструмент для организации учебного процесса, учета успеваемости и взаимодействия с родителями.
+                    Удобный инструмент для организации учебного процесса.
                 </p>
             </div>
 
@@ -192,33 +180,33 @@
                     <li><a href="{{ route('calendar') }}" class="nav-link p-0 text-body-secondary link-underline-opacity-0 link-underline-opacity-100-hover">Календарь</a></li>
                     <li><a href="{{ route('schedule.index') }}" class="nav-link p-0 text-body-secondary link-underline-opacity-0 link-underline-opacity-100-hover">Расписание</a></li>
                     <li><a href="{{ route('database.index') }}" class="nav-link p-0 text-body-secondary link-underline-opacity-0 link-underline-opacity-100-hover">База данных</a></li>
+                    <li><a href="{{ route('notifications.index') }}" class="nav-link p-0 text-body-secondary link-underline-opacity-0 link-underline-opacity-100-hover">Объявления</a></li>
                 </ul>
             </div>
 
             <!-- Раздел: Ученики -->
             <div class="col-6 col-md-2">
-                <h6 class="fw-semibold mb-3">Ученики</h6>
                 <ul class="nav flex-column gap-2">
                     <li><a href="{{ route('students.index') }}" class="nav-link p-0 text-body-secondary link-underline-opacity-0 link-underline-opacity-100-hover">Список учеников</a></li>
-                    <li><a href="{{ route('attendance.index') }}" class="nav-link p-0 text-body-secondary link-underline-opacity-0 link-underline-opacity-100-hover">Посещаемость</a></li>
+                    <li><a href="{{ route('attendance.index') }}" class="nav-link p-0 text-body-secondary link-underline-opacity-0 link-underline-opacity-100-hover">Питание</a></li>
                     <li><a href="{{ route('competitions.index') }}" class="nav-link p-0 text-body-secondary link-underline-opacity-0 link-underline-opacity-100-hover">Конкурсы</a></li>
                     <li><a href="{{ route('qualifications.index') }}" class="nav-link p-0 text-body-secondary link-underline-opacity-0 link-underline-opacity-100-hover">Квалификации</a></li>
-                </ul>
-            </div>
-
-            <!-- Раздел: Документы -->
-            <div class="col-6 col-md-2">
-                <h6 class="fw-semibold mb-3">Документы</h6>
-                <ul class="nav flex-column gap-2">
                     <li><a href="{{ route('documents.index') }}" class="nav-link p-0 text-body-secondary link-underline-opacity-0 link-underline-opacity-100-hover">Все документы</a></li>
-                    <li><a href="{{ route('notifications.index') }}" class="nav-link p-0 text-body-secondary link-underline-opacity-0 link-underline-opacity-100-hover">Объявления</a></li>
-                    @admin
-                    <li><a href="{{ route('register.index') }}" class="nav-link p-0 text-body-secondary link-underline-opacity-0 link-underline-opacity-100-hover">Добавить пользователя</a></li>
-                    @endadmin
                     <li><a href="{{ route('cabinet.index') }}" class="nav-link p-0 text-body-secondary link-underline-opacity-0 link-underline-opacity-100-hover">Личный кабинет</a></li>
                 </ul>
             </div>
 
+            @admin
+            <!-- Раздел: Документы -->
+            <div class="col-6 col-md-2">
+                <h6 class="fw-semibold mb-3">Администрирование</h6>
+                <ul class="nav flex-column gap-2">
+                    <li><a href="{{ route('register.index') }}" class="nav-link p-0 text-body-secondary link-underline-opacity-0 link-underline-opacity-100-hover">Добавить пользователя</a></li>
+                    <li><a href="{{ route('qualifications.all') }}" class="nav-link p-0 text-body-secondary link-underline-opacity-0 link-underline-opacity-100-hover">Все квалификации</a></li>
+                    <li><a href="{{ route('achievements.all') }}" class="nav-link p-0 text-body-secondary link-underline-opacity-0 link-underline-opacity-100-hover">Все достижения</a></li>
+                </ul>
+            </div>
+            @endadmin
             <!-- Раздел: Контакты / Доп. ссылки -->
             <div class="col-6 col-md-2">
                 <h6 class="fw-semibold mb-3">Ещё</h6>

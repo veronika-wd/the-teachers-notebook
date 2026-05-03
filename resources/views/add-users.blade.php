@@ -177,4 +177,50 @@
         <button type="submit" class="btn btn--primary">Отправить</button>
     </div>
 </form>
+<div class="row">
+    <div class="col-sm-12 col-lg-6">
+        <h3>Уроки</h3>
+        <form action="{{ route('subjects.store') }}" method="post" class="d-flex justify-content-between align-items-end mb-3 gap-2">
+            @csrf
+            <div class="form-group w-100">
+                <label for="name" class="form-label">Добавить новый предмет</label>
+                <input type="text" name="name" id="name" class="form-control" placeholder="Введите название" required>
+            </div>
+            <button type="submit" class="btn btn--primary">Добавить</button>
+        </form>
+        <ul class="list-group">
+            @foreach($subjects as $subject)
+                <li class="list-group-item d-flex align-items-center">{{ $subject->name }}
+                    <form action="{{ route('subjects.destroy', $subject) }}" method="post">
+                        @method('DELETE')
+                        @csrf
+                        <button type="submit" class="btn delete-btn">X</button>
+                    </form>
+                </li>
+            @endforeach
+        </ul>
+    </div>
+    <div class="col-sm-12 col-lg-6">
+        <h3>Классы</h3>
+        <form action="{{ route('classes.store') }}" method="post" class="d-flex justify-content-between align-items-end mb-3 gap-2">
+            @csrf
+            <div class="form-group w-100">
+                <label for="name" class="form-label">Добавить новый класс</label>
+                <input type="text" name="name" id="name" class="form-control" placeholder="Введите название" required>
+            </div>
+            <button type="submit" class="btn btn--primary">Добавить</button>
+        </form>
+        <ul class="list-group">
+            @foreach($classes as $class)
+                <li class="list-group-item d-flex align-items-center">{{ $class->name }}
+                    <form action="{{ route('classes.destroy', $class) }}" method="post">
+                        @method('DELETE')
+                        @csrf
+                        <button type="submit" class="btn delete-btn">X</button>
+                    </form>
+                </li>
+            @endforeach
+        </ul>
+    </div>
+</div>
 @endsection

@@ -14,12 +14,12 @@
                 <h2>Объявления</h2>
                 @foreach($notifications as $notification)
                     <div class="card w-100 mb-2">
-                        <div class="card-header d-flex justify-content-between align-items-center bg-info bg-gradient">
+                        <div class="card-header bg-info bg-gradient">
                             <h5>{{ $notification->title }}</h5>
-                            <p>{{ date_format($notification->created_at, 'd/m/y H:i') }}</p>
+                            <p class="text-sm">{{ date_format($notification->created_at, 'd/m/y H:i') }}</p>
                         </div>
                         <div class="card-body">
-                            <p>{{ $notification->body }}</p>
+                            <p class="text-sm">{{ $notification->body }}</p>
                         </div>
                     </div>
                 @endforeach
@@ -57,28 +57,17 @@
                     <table>
                         <thead>
                         <tr>
-                            <th>1 класс</th>
-                            <th>2 класс</th>
-                            <th>3 класс</th>
-                            <th>4 класс</th>
-                            <th>5 класс</th>
-                            <th>6 класс</th>
-                            <th>7 класс</th>
-                            <th>8 класс</th>
-                            <th>9 класс</th>
-                            <th>10 класс</th>
-                            <th>11 класс</th>
+                            @foreach($classes as $class)
+                                <th>{{ $class->name }} класс</th>
+                            @endforeach
                         </tr>
                         </thead>
                         <tbody>
-                        @foreach($shedule as $number => $item) {{-- $number - это номер урока (1-7) --}}
+                        @foreach($shedule as $number => $item)
                         <tr>
-                            {{-- Заголовок строки (опционально, чтобы понимать какой урок) --}}
-                            {{-- <td style="font-weight:bold;">{{ $number }} урок</td> --}}
 
                             @foreach($item as $subject)
                                 @php
-                                    // Определяем, чей это урок для подсветки
                                     $isMyLesson = false;
 
                                     if ($subject->is_replacement) {
@@ -93,14 +82,10 @@
                                         }
                                     }
 
-                                    // Формируем текст учителя
                                     $teacherText = '';
                                     if ($subject->is_replacement && $subject->replacementTeacherName) {
                                         $teacherText = $subject->replacementTeacherName;
                                     } else {
-                                        // Здесь нужно вывести имя штатного учителя.
-                                        // Если в Schedule лежит только user_id, нужна связь $subject->teacher->name
-                                        // Или если вы подгрузили её в запросе Schedule::with('teacher')
                                         $teacherText = $subject->teacher->name ?? '—';
                                     }
                                 @endphp

@@ -106,6 +106,12 @@ Route::middleware(['auth'])->group(function () {
     Route::post('/schedule/replace', [ScheduleController::class, 'replace'])->name('schedule.replace');
     Route::post('/schedule/clear', [ScheduleController::class, 'clear'])->name('schedule.clear');
 
+    Route::post('/subjects/create', [RegisterController::class, 'createSubject'])->name('subjects.store');
+    Route::delete('/subjects/{subject}', [RegisterController::class, 'deleteSubject'])->name('subjects.destroy');
+
+    Route::post('/classes/create', [RegisterController::class, 'createClass'])->name('classes.store');
+    Route::delete('/classes/{class}', [RegisterController::class, 'deleteClass'])->name('classes.destroy');
+
 });
 
 

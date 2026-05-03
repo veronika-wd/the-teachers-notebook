@@ -30,10 +30,22 @@ class ScheduleController extends Controller
         $primarySchool = $primarySchoolAll->groupBy('number');
         $highSchool = $highSchoolAll->groupBy('number');
 
+        $primaryClasses = SchoolClass::all()->sortBy(function($class) {
+            preg_match('/^\d+/', $class->name, $matches);
+            return $matches[0] ?? 0;
+        })->values()->where('name', '<', '5');
+
+        $highClasses = SchoolClass::all()->sortBy(function($class) {
+            preg_match('/^\d+/', $class->name, $matches);
+            return $matches[0] ?? 0;
+        })->values()->where('name', '>=', '5');
+
         return view('schedule', [
             'primarySchool' => $primarySchool,
             'highSchool' => $highSchool,
             'day' => $day,
+            'primaryClasses' => $primaryClasses,
+            'highClasses' => $highClasses,
         ]);
     }
 
@@ -41,7 +53,10 @@ class ScheduleController extends Controller
     {
         $users = User::all();
         $subjects = Subject::all();
-        $classes = SchoolClass::all();
+        $classes = SchoolClass::all()->sortBy(function($class) {
+            preg_match('/^\d+/', $class->name, $matches);
+            return $matches[0] ?? 0;
+        })->values();
         $changes = Change::all();
 
         return view('schedules.index', [
@@ -69,7 +84,6 @@ class ScheduleController extends Controller
     public function showReplaceForm()
     {
         $classes = SchoolClass::all()->sortBy(function($class) {
-            // Извлекаем число из начала строки (например, 10 из "10А")
             preg_match('/^\d+/', $class->name, $matches);
             return $matches[0] ?? 0;
         })->values();
@@ -85,7 +99,6 @@ class ScheduleController extends Controller
         ];
         $maxLessons = 7;
 
-        // 🔥 ЗАГРУЖАЕМ ТЕКУЩЕЕ РАСПИСАНИЕ
         $currentSchedule = $this->loadCurrentSchedule($classes, $days, $maxLessons);
 
         return view('schedules.create', compact(
@@ -109,7 +122,7 @@ class ScheduleController extends Controller
                 foreach ($days as $dayNum => $dayName) {
                     $schedule[$class->id]['lessons'][$lesson][$dayNum] = [
                         'subject_id' => null,
-                        'user_id' => null, // 🔥 Изменил с teacher_id на user_id
+                        'user_id' => null,
                         'cabinet' => null,
                     ];
                 }
@@ -130,7 +143,7 @@ class ScheduleController extends Controller
             if (isset($schedule[$classId]['lessons'][$lessonIndex][$dayNum])) {
                 $schedule[$classId]['lessons'][$lessonIndex][$dayNum] = [
                     'subject_id' => $subjectIds[$item->subject] ?? null,
-                    'user_id' => $item->user_id ? (int) $item->user_id : null, // 🔥 user_id вместо teacher_id
+                    'user_id' => $item->user_id ? (int) $item->user_id : null,
                     'cabinet' => $item->cabinet ?: null,
                 ];
             }
@@ -194,7 +207,7 @@ class ScheduleController extends Controller
                         'number'     => (int) $lessonIndex + 1,
                         'class'      => $classNames[$classId],
                         'cabinet'    => isset($lesson['cabinet']) ? (int) $lesson['cabinet'] : 0,
-                        'user_id'    => isset($lesson['user_id']) ? (int) $lesson['user_id'] : null, // 🔥 Только user_id
+                        'user_id'    => isset($lesson['user_id']) ? (int) $lesson['user_id'] : null,
                         'created_at' => now(),
                         'updated_at' => now(),
                     ];
@@ -228,7 +241,7 @@ class ScheduleController extends Controller
                         'number'     => (int) $lessonIndex + 1,
                         'class'      => $classNames[$classId],
                         'cabinet'    => isset($lesson['cabinet']) ? (int) $lesson['cabinet'] : 0,
-                        'user_id'    => isset($lesson['user_id']) ? (int) $lesson['user_id'] : null, // 🔥 Только user_id
+                        'user_id'    => isset($lesson['user_id']) ? (int) $lesson['user_id'] : null,
                         'updated_at' => now(),
                     ];
                     $count++;
@@ -240,7 +253,7 @@ class ScheduleController extends Controller
             Schedule::upsert(
                 $dataToUpsert,
                 ['class', 'day', 'number'],
-                ['subject', 'cabinet', 'user_id', 'updated_at'] // 🔥 user_id вместо teacher_id
+                ['subject', 'cabinet', 'user_id', 'updated_at']
             );
         }
 
@@ -254,7 +267,7 @@ class ScheduleController extends Controller
             $count = Schedule::query()->delete();
             DB::commit();
 
-            return redirect()->back()->with('success', "🗑️ Расписание полностью очищено! Удалено записей: {$count}");
+            return redirect()->back()->with('success', "Расписание полностью очищено! Удалено записей: {$count}");
         } catch (\Exception $e) {
             DB::rollBack();
             return back()->withErrors(['error' => 'Ошибка при очистке: ' . $e->getMessage()]);

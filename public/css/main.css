@@ -79,6 +79,10 @@ header[style*="background-color: #7120A6"] {
   height: 40px;
 }
 
+.text-sm {
+  font-size: 1.2em;
+}
+
 @media (min-width: 1200px) {
   .navbar-brand svg {
     width: 56px;
