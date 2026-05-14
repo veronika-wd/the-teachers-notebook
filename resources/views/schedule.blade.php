@@ -66,7 +66,7 @@
         @foreach($highSchool as $item)
             <tr>
                 @foreach($item as $subject)
-                    <td>{{ $subject->subject . ', ' . $item->cabinet}}</td>
+                    <td>{{ $subject->subject . ', ' . $subject->cabinet}}</td>
                 @endforeach
             </tr>
         @endforeach
