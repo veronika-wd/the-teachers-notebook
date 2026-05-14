@@ -48,12 +48,13 @@ class RegisterController extends Controller
 
     public function student(Request $request)
     {
+//        dd($request->class);
         Student::create([
             'name' => $request->name,
             'surname' => $request->surname,
             'patronymic' => $request->patronymic,
             'birth_date' => $request->birth_date,
-            'class_id' => $request->class,
+            'class' => $request->class,
             'snils' => $request->snils,
             'inn' => $request->inn,
             'passport_data' => $request->passport_data,

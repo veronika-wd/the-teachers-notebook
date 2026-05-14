@@ -282,25 +282,16 @@
                                     </tr>
                                 @endif
                                 </tbody>
-                                <tfoot class="table-light fw-bold">
-                                <tr>
-                                    <td colspan="2" class="text-end">Итого за месяц:</td>
-                                    <td class="text-success">{{ number_format($totalPayments, 2, ',', ' ') }} ₽</td>
-                                    <td colspan="3"></td>
-                                </tr>
-                                </tfoot>
                             </table>
                         </div>
                     </div>
                 </div>
             </div>
-        </div> <!-- Конец tab-content -->
-    </div> <!-- Конец container-fluid -->
+        </div>
+    </div>
 
-    <!-- Ваш скрипт для посещаемости остается ниже -->
     <script>
         function toggleAttendance(btn, studentId, date) {
-            // ... код без изменений ...
             const input = document.getElementById(`att-${studentId}-${date}`);
             const currentValue = input.value;
 

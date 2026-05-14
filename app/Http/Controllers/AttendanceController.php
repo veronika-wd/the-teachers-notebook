@@ -13,7 +13,6 @@ class AttendanceController extends Controller
 {
     public function __construct()
     {
-        // Устанавливаем русскую локаль для Carbon
         Carbon::setLocale('ru');
         setlocale(LC_TIME, 'ru_RU.UTF-8');
     }
@@ -27,7 +26,7 @@ class AttendanceController extends Controller
         return view('attendance.index', compact('classes'));
     }
 
-    public function storePayment(Request $request, SchoolClass $class)
+    public function storePayment(Request $request)
     {
         Payment::create([
             'student_id' => $request->student_id,
@@ -40,14 +39,12 @@ class AttendanceController extends Controller
         return redirect()->back()->with('payment_success', 'Платеж успешно добавлен!');
     }
 
-// Удаление платежа
     public function deletePayment(SchoolClass $class, Payment $payment)
     {
         $payment->delete();
         return redirect()->back()->with('payment_deleted', 'Платеж удален!');
     }
 
-// Обновленный метод show - добавьте загрузку платежей
     public function show(Request $request, SchoolClass $class)
     {
         $year = $request->input('year', now()->year);
@@ -56,7 +53,6 @@ class AttendanceController extends Controller
         $startOfMonth = Carbon::create($year, $month, 1);
         $endOfMonth = $startOfMonth->copy()->endOfMonth();
 
-        // Генерируем дни месяца
         $days = [];
         $currentDay = $startOfMonth->copy();
         while ($currentDay->lte($endOfMonth)) {
@@ -64,7 +60,6 @@ class AttendanceController extends Controller
             $currentDay->addDay();
         }
 
-        // Получаем учеников с их посещаемостью И платежами
         $students = $class->students()
             ->orderBy('surname')
             ->with([
@@ -78,7 +73,6 @@ class AttendanceController extends Controller
             ])
             ->get();
 
-        // Считаем общую сумму платежей по классу за месяц
         $totalPayments = $students->sum(function($student) {
             return $student->payments->sum('amount');
         });
