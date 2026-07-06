@@ -9,6 +9,11 @@
     <h2>Мой личный кабинет</h2>
     <hr>
     <button type="submit" id="edit" class="btn btn--primary mb-3">Изменить профиль</button>
+    <form action="{{ route('cabinet.teacher.destroy', $teacher) }}" method="post">
+        @csrf
+        @method('DELETE')
+        <button type="submit" class="btn btn--secondary mb-3">Удалить профиль</button>
+    </form>
     <a href="{{ route('cabinet.achievements.upload') }}" class="btn btn--primary mb-3">Мои достижения</a>
     <a href="{{ route('qualifications.index') }}" class="btn btn--primary mb-3">Мои квалификации</a>
     <div id="dataWrapper" class="row g-3">
@@ -82,7 +87,7 @@
         <div class="col-sm-12 col-lg-4">
             <input type="text" name="experience" value="{{ $teacher->experience }}" class="form-control">
         </div>
-        <button type="submit" class="btn btn--primary">Отправить</button>
+        <button type="submit" class="btn btn--primary">Изменить</button>
     </form>
     <script src="{{ asset('scripts/profile.js') }}"></script>
 @endsection

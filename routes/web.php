@@ -58,17 +58,22 @@ Route::middleware(['auth'])->group(function () {
         Route::patch('/', [TeacherController::class, 'update'])->name('cabinet.update');
         Route::get('/achievement', [TeacherController::class, 'achievements'])->name('cabinet.achievements.upload');
         Route::post('/achievement', [TeacherController::class, 'storeAchievement'])->name('cabinet.achievements.store');
+        Route::delete('/destroy/{user}', [TeacherController::class, 'destroyTeacher'])->name('cabinet.teacher.destroy');
     });
     Route::prefix('students')->group(function () {
         Route::get('/', [StudentController::class, 'index'])->name('students.index');
         Route::get('/{student}', [StudentController::class, 'show'])->name('students.show');
         Route::post('/{student}', [StudentController::class, 'storeAchievement'])->name('students.achievements.store');
         Route::patch('/{student}', [StudentController::class, 'update'])->name('students.update');
+        Route::get('/students/transfer', [StudentController::class, 'promoteAll'])->name('students.transfer');
+        Route::delete('/students/{student}', [StudentController::class, 'destroy'])->name('students.destroy');
+        Route::post('/guardians/{student}', [StudentController::class, 'storeGuardian'])->name('students.guardian.store');
     });
     Route::prefix('guardians')->group(function () {
         Route::get('/{guardian}', [GuardianController::class, 'show'])->name('guardians.show');
         Route::patch('/{guardian}', [GuardianController::class, 'update'])->name('guardians.update');
         Route::post('/{guardian}', [GuardianController::class, 'store'])->name('guardians.students.store');
+        Route::delete('/{guardian}', [GuardianController::class, 'destroy'])->name('guardian.destroy');
     });
 
     Route::prefix('register')->group(function () {

@@ -97,8 +97,6 @@ async function loadData(url = '/api/students') {
                     {title: "Дата рождения", field: "birthDate"},
                     {title: "Класс", field: "class"},
                     {title: "Серия и номер паспорта", field: "passportData"},
-                    {title: "Родитель", field: "parent"},
-                    {title: "Номер телефона родителя", field: "parentPhone"},
                     {title: "Адрес проживания", field: "address"},
                     {title: "Статус", field: "status"}
                 ],
@@ -159,7 +157,7 @@ async function loadData(url = '/api/students') {
                     {title: "ФИО", field: "fullname"},
                     {title: "Телефон", field: "phone"},
                     {title: "Дата рождения", field: "birthDate"},
-                    {title: "Серия и номер паспорта", field: "pasportData"},
+                    {title: "Серия и номер паспорта", field: "passportData"},
                     {title: "СНИЛС", field: "snils"},
                     {title: "ИНН", field: "inn"},
                     {title: "Адрес проживания", field: "address"},

@@ -10,7 +10,11 @@
     <hr>
     <h4>Данные:</h4>
     <button type="submit" id="edit" class="btn btn--primary mb-3">Изменить профиль</button>
-    {{--    <a href="{{ route('') }}" class="btn btn--primary">Перейти к родителям</a>--}}
+    <form action="{{ route('guardian.destroy', $guardian) }}" method="post">
+        @csrf
+        @method('DELETE')
+        <button type="submit" class="btn btn--secondary mb-3">Удалить родителя</button>
+    </form>
     <div id="dataWrapper" class="row g-3">
         <div class="col-sm-12 col-lg-12">
             <h2>{{ $guardian->full_name }}</h2>
@@ -66,17 +70,17 @@
     <h4>Добавить ребенка</h4>
     <form action="{{ route('guardians.students.store', $guardian) }}" method="post" class="w-50 d-flex gap-3 align-items-center justify-content-start mb-3">
         @csrf
-        <select name="student" id="student" class="form-control w-75">
+        <select name="student" id="student" class="form-control w-50">
             @foreach($studentsAll as $student)
-                <option value="{{ $student->id }}">{{ $student->name }}</option>
+                <option value="{{ $student->id }}">{{ $student->surname . ' ' . $student->name . ' ' . $student->patronymic }}</option>
             @endforeach
         </select>
-        <button type="submit" class="btn btn--primary w-25">Добавить ребенка</button>
+        <button type="submit" class="btn btn--primary w-50">Добавить ребенка</button>
     </form>
     <div class="row g-2">
         @foreach($students as $student)
             <div class="col-lg-2">
-                <a href="{{ route('students.show', $student) }}" class="btn btn--outline">{{ $student->name }}</a>
+                <a href="{{ route('students.show', $student) }}" class="btn btn--outline">{{ $student->surname . ' ' . $student->name . ' ' . $student->patronymic }}</a>
             </div>
         @endforeach
     </div>

@@ -24,7 +24,7 @@ class TeacherResource extends JsonResource
             'post' => $this->post,
             'snils' => $this->snils,
             'inn' => $this->inn,
-            'pasportData' => $this->pasport_data,
+            'passportData' => $this->passport_data,
             'phone' => $this->phone,
             'education' => $this->education,
             'experience' => $this->experience,

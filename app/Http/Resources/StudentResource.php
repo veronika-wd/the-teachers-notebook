@@ -23,8 +23,6 @@ class StudentResource extends JsonResource
             'birthDate' => $this->birth_date,
             'class' => $this->class,
             'passportData' => $this->passport_data,
-            'parent' => $this->parent_full_name,
-            'parentPhone' => $this->parent_phone,
             'address' => $this->address,
             'status' => $this->status,
         ];

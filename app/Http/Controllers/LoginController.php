@@ -21,7 +21,7 @@ class LoginController extends Controller
 
         if (!$user) {
             return redirect()->back()->withErrors([
-                'auth' => 'Wrong email or password',
+                'auth' => 'Неверный логин или пароль',
             ]);
         }
 

@@ -8,7 +8,7 @@
                     <details>
                         <summary>{{ $class->name }} класс</summary>
                         @foreach($students[$class->name] as $student)
-                            <a href="{{ route('students.show', $student) }}" class="btn btn--outline">{{ $student->name }}</a>
+                            <a href="{{ route('students.show', $student) }}" class="btn btn--outline">{{ $student->surname . ' ' . $student->name . ' ' . $student->patronymic }}</a>
                         @endforeach
                     </details>
             </div>

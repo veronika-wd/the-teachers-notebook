@@ -74,5 +74,5 @@
     </table>
     </div>
 
-<script src="scripts/shedule.js"></script>
+{{--<script src="scripts/shedule.js"></script>--}}
 @endsection

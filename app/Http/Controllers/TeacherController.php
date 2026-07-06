@@ -42,6 +42,12 @@ class TeacherController extends Controller
 
         return redirect()->back();
     }
+
+    public function destroyTeacher(User $user)
+    {
+        $user->delete();
+        return redirect()->route('login.form');
+    }
     public function getTeachers()
     {
         $teachers = User::all();

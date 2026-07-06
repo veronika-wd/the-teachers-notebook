@@ -6,16 +6,30 @@
             display: none;
         }
     </style>
-    <h2>Профиль ученика: {{ $student->surname . ' ' . $student->name . ' ' . $student->patronymic}}</h2>
+    <h2>Профиль ученика: {{ $student->surname . ' ' . $student->name . ' ' . $student->patronymic }}</h2>
     <hr>
     <h4>Данные:</h4>
     <button type="submit" id="edit" class="btn btn--primary mb-3">Изменить профиль</button>
+    <form action="{{ route('students.destroy', $student) }}" method="post">
+        @csrf
+        @method('DELETE')
+        <button type="submit" class="btn btn--secondary mb-3">Удалить ученика</button>
+    </form>
     <p>Родители:
     @foreach($guardians as $guardian)
             <a href="{{ route('guardians.show', $guardian) }}" class="btn btn--outline">{{ $guardian->full_name }}</a>
     @endforeach
     </p>
-
+    <h4>Добавить родителя</h4>
+    <form action="{{ route('students.guardian.store', $student) }}" method="post" class="w-50 d-flex gap-3 align-items-center justify-content-start mb-3">
+        @csrf
+        <select name="guardian" id="guardian" class="form-control  w-50">
+            @foreach($guardiansAll as $guardian)
+                <option value="{{ $guardian->id }}">{{ $guardian->full_name }}</option>
+            @endforeach
+        </select>
+        <button type="submit" class="btn btn--primary w-50">Добавить родителя</button>
+    </form>
     <div id="dataWrapper" class="row g-3">
         <div class="col-sm-12 col-lg-10">
             <h2>{{ $student->surname . ' ' . $student->name . ' ' . $student->patronymic}}</h2>

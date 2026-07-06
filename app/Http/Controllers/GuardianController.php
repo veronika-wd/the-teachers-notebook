@@ -50,4 +50,11 @@ class GuardianController extends Controller
 
         return redirect()->back();
     }
+
+    public function destroy(Guardian $guardian)
+    {
+        $guardian->delete();
+
+        return redirect()->route('students.index');
+    }
 }

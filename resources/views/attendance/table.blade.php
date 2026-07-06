@@ -124,7 +124,7 @@
                                     @foreach($students as $student)
                                         <tr>
                                             <td style="position: sticky; left: 0; z-index: 5; background: white;">
-                                                <strong>{{ $student->surname . ' ' . $student->name }}</strong>
+                                                <strong>{{ $student->surname . ' ' . $student->name . ' ' . $student->patronymic }}</strong>
                                             </td>
                                             @foreach($days as $day)
                                                 @php
@@ -189,7 +189,7 @@
                                     <option value="">Выберите ученика...</option>
                                     @foreach($students as $student)
                                         <option value="{{ $student->id }}">
-                                            {{ $student->surname  . ' ' . $student->name }}
+                                            {{ $student->surname  . ' ' . $student->name . ' ' . $student->patronymic }}
                                         </option>
                                     @endforeach
                                 </select>

@@ -31,7 +31,7 @@
                 @csrf
                 <select name="student" id="student" class="form-control w-100">
                     @foreach($studentsAll as $student)
-                        <option value="{{ $student->id }}">{{ $student->name }}</option>
+                        <option value="{{ $student->id }}">{{ $student->surname . ' ' . $student->name . ' ' . $student->patronymic }}</option>
                     @endforeach
                 </select>
                 <button type="submit" class="btn btn--primary w-100">Добавить ребенка</button>
