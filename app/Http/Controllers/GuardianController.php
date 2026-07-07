@@ -39,6 +39,9 @@ class GuardianController extends Controller
             'address' => $request->address,
             'status' => $request->status,
             'job' => $request->job,
+            'snils' => $request->snils,
+            'inn' => $request->inn,
+            'passport_data' => $request->passport_data,
         ]);
 
         return redirect()->back();

@@ -102,7 +102,7 @@
         </div>
         <div class="col-sm-12 col-lg-2">
             <label for="surname" class="form-label">СНИЛС</label>
-            <input type="text" name="snils" value="{{ $student->snils }}" class="form-control">
+            <input type="text" name="snils" value="{{ $student->snils }}" class="form-control snils">
         </div>
         <div class="col-sm-12 col-lg-2">
             <label for="surname" class="form-label">ИНН</label>

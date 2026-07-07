@@ -20,6 +20,9 @@ class GuardianResource extends JsonResource
             'job' => $this->job,
             'address' => $this->address,
             'status' => $this->status,
+            'snils' => $this->snils,
+            'inn' => $this->inn,
+            'passport_data' => $this->passport_data
         ];
     }
 }

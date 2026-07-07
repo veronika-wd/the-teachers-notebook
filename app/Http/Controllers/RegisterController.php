@@ -73,6 +73,9 @@ class RegisterController extends Controller
             'address' => $request->address,
             'job' => $request->job,
             'status' => $request->status,
+            'snils' => $request->snils,
+            'inn' => $request->inn,
+            'passport_data' => $request->passport_data,
         ]);
 
         return redirect()->back();

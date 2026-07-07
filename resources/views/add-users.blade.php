@@ -233,6 +233,18 @@
         </div>
     </div>
 
+    <div class="col-sm-12 col-lg-2">
+        <label for="surname" class="form-label">СНИЛС</label>
+        <input type="text" name="snils" class="form-control">
+    </div>
+    <div class="col-sm-12 col-lg-2">
+        <label for="surname" class="form-label">ИНН</label>
+        <input type="text" name="inn" class="form-control">
+    </div>
+    <div class="col-sm-12 col-lg-2">
+        <label for="surname" class="form-label">Паспортные данные</label>
+        <input type="text" name="passport_data" class="form-control">
+    </div>
     <div class="col-12">
         <button type="submit" class="btn btn--primary">Добавить</button>
     </div>

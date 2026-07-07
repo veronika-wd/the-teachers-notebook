@@ -42,28 +42,63 @@
                 <p>Адрес: {{ $guardian->address }}</p>
             </div>
         </div>
+        <div class="col-sm-12 col-lg-6">
+            <div class="data__element">
+
+                <p>СНИЛС: {{ $guardian->snils }}</p>
+            </div>
+        </div>
+        <div class="col-sm-12 col-lg-6">
+            <div class="data__element">
+
+                <p>ИНН: {{ $guardian->inn }}</p>
+            </div>
+        </div>
+        <div class="col-sm-12 col-lg-6">
+            <div class="data__element">
+
+                <p>Паспортные данные: {{ $guardian->passport_data }}</p>
+            </div>
+        </div>
 
     </div>
 
     <form action="{{ route('guardians.update', $guardian) }}" method="post" id="formUpdate" class="row g-3 hidden">
         @csrf
         @method('PATCH')
-        <div class="col-sm-12 col-lg-12">
-            <input type="text" name="surname" value="{{ $guardian->full_name }}" class="form-control">
+        <div class="col-sm-12 col-lg-3">
+            <label class="form-label">ФИО</label>
+            <input type="text" name="full_name" value="{{ $guardian->full_name }}" class="form-control">
         </div>
-        <div class="col-sm-12 col-lg-6">
-            <input type="tel" name="phone" value="{{ $guardian->phone }}" class="form-control">
+        <div class="col-sm-12 col-lg-3">
+            <label class="form-label">Телефон</label>
+            <input type="tel" name="phone" value="{{ $guardian->phone }}" class="form-control phone">
         </div>
-        <div class="col-sm-12 col-lg-6">
+        <div class="col-sm-12 col-lg-3">
+            <label class="form-label">Статус</label>
             <input type="text" name="status" value="{{ $guardian->status }}" class="form-control">
         </div>
-        <div class="col-sm-12 col-lg-6">
+        <div class="col-sm-12 col-lg-3">
+            <label class="form-label">Место работы</label>
             <input type="text" name="job" value="{{ $guardian->job }}" class="form-control">
         </div>
-        <div class="col-sm-12 col-lg-6">
-            <input type="date" name="address" value="{{ $guardian->address }}" class="form-control">
+        <div class="col-sm-12 col-lg-3">
+            <label class="form-label">Адрес</label>
+            <input type="text" name="address" value="{{ $guardian->address }}" class="form-control" required>
         </div>
-        <button type="submit" class="btn btn--primary col-sm-12 col-lg-4">Отправить</button>
+        <div class="col-sm-12 col-lg-3">
+            <label for="surname" class="form-label">СНИЛС</label>
+            <input type="text" name="snils" value="{{ $guardian->snils }}" class="form-control snils">
+        </div>
+        <div class="col-sm-12 col-lg-3">
+            <label for="surname" class="form-label">ИНН</label>
+            <input type="text" name="inn" value="{{ $guardian->inn }}" class="form-control">
+        </div>
+        <div class="col-sm-12 col-lg-3">
+            <label for="surname" class="form-label">Паспортные данные</label>
+            <input type="text" name="passport_data" value="{{ $guardian->passport_data }}" class="form-control">
+        </div>
+        <button type="submit" class="btn btn--primary col-sm-12 col-lg-12">Отправить</button>
     </form>
     <h3 class="mt-3">Дети</h3>
     <hr>
@@ -85,4 +120,5 @@
         @endforeach
     </div>
     <script src="{{ asset('scripts/profile.js') }}"></script>
+    <script src="{{ asset('scripts/validation.js') }}"></script>
 @endsection
