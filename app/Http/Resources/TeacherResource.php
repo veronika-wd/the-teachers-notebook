@@ -20,7 +20,7 @@ class TeacherResource extends JsonResource
             'fullname' => $this->name,
             'surname' => $this->surname,
             'patronymic' => $this->patronymic,
-            'birthDate' => $this->birth_date,
+            'birthDate' => date_format($this->birth_date, 'd.m.Y'),
             'post' => $this->post,
             'snils' => $this->snils,
             'inn' => $this->inn,
