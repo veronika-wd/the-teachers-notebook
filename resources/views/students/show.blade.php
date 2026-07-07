@@ -1,5 +1,5 @@
 @extends('layout')
-@section('title', $student->name)
+@section('title', $student->surname . ' ' . $student->name)
 @section('content')
     <style>
         .hidden{
