@@ -30,7 +30,7 @@
                 <div class="col-sm-12 col-lg-4">
                     <button id="orderBySurname" class="btn btn--primary w-100">Сортировать по фамилии</button>
                 </div>
-
+                <p id="countData"></p>
             </div>
 
         </div>

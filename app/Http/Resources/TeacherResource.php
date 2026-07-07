@@ -30,6 +30,7 @@ class TeacherResource extends JsonResource
             'experience' => $this->experience,
             'qualification' => $this->qualification,
             'address' => $this->address
+
         ];
     }
 }

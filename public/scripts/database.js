@@ -1,24 +1,19 @@
 // ============================================
 // ГЛОБАЛЬНЫЕ ПЕРЕМЕННЫЕ
 // ============================================
-let currentTable = null;          // Хранит текущий экземпляр Tabulator
-let currentData = [];             // Хранит текущие данные для поиска
-let searchHandler = null;         // Хранит ссылку на текущую функцию поиска
+let currentTable = null;
+let currentData = [];
+let searchHandler = null;
 
 // ============================================
 // ВСПОМОГАТЕЛЬНЫЕ ФУНКЦИИ
 // ============================================
 
-/**
- * Безопасная проверка на включение подстроки
- * Работает со строками, числами, объектами, массивами, null/undefined
- */
 function safeIncludes(value, searchTerm) {
     if (value === null || value === undefined) return false;
 
     let strValue;
     if (typeof value === 'object') {
-        // Если объект — извлекаем все строковые значения и объединяем
         strValue = Object.values(value)
             .filter(v => typeof v === 'string' || typeof v === 'number')
             .join(' ')
@@ -29,26 +24,35 @@ function safeIncludes(value, searchTerm) {
     return strValue.includes(searchTerm);
 }
 
-/**
- * Очищает предыдущие обработчики и таблицу перед загрузкой новых данных
- */
 function cleanupPrevious() {
     const searchInput = document.getElementById('searchInput');
 
-    // Удаляем старый обработчик поиска
     if (searchHandler) {
         searchInput.removeEventListener('input', searchHandler);
         searchHandler = null;
     }
 
-    // Уничтожаем предыдущую таблицу Tabulator
     if (currentTable && typeof currentTable.destroy === 'function') {
         currentTable.destroy();
         currentTable = null;
     }
 
-    // Сбрасываем данные
     currentData = [];
+}
+
+/**
+ * Обновляет счетчик результатов с небольшой задержкой
+ */
+function countData() {
+    // Используем setTimeout чтобы дать время на отрисовку
+    setTimeout(() => {
+        const rows = document.querySelectorAll('#database-table .tabulator-row');
+        const count = rows.length;
+        const counterElement = document.getElementById('countData');
+        if (counterElement) {
+            counterElement.textContent = `Всего результатов: ${count}`;
+        }
+    }, 50);
 }
 
 // ============================================
@@ -57,10 +61,8 @@ function cleanupPrevious() {
 async function loadData(url = '/api/students') {
     const searchInput = document.getElementById('searchInput');
 
-    // Очищаем предыдущее состояние
     cleanupPrevious();
 
-    // Показываем/скрываем кнопку сортировки по классу
     const orderByClassBtn = document.getElementById('orderByClass');
     if (orderByClassBtn) {
         orderByClassBtn.style.display = (url === '/api/students') ? 'inline-block' : 'none';
@@ -81,7 +83,7 @@ async function loadData(url = '/api/students') {
         }
 
         const data = await response.json();
-        currentData = data; // Сохраняем данные для поиска
+        currentData = data;
 
         // ============================================
         // СТУДЕНТЫ / УЧЕНИКИ
@@ -102,7 +104,15 @@ async function loadData(url = '/api/students') {
                 ],
             });
 
-            // Сортировка по классу
+            // Подписываемся на события таблицы
+            currentTable.on("tableBuilt", function() {
+                countData();
+            });
+
+            currentTable.on("dataLoaded", function(data) {
+                countData();
+            });
+
             const sortByClassBtn = document.getElementById('orderByClass');
             if (sortByClassBtn) {
                 sortByClassBtn.onclick = () => {
@@ -110,7 +120,6 @@ async function loadData(url = '/api/students') {
                 };
             }
 
-            // Сортировка по фамилии
             const sortBySurnameBtn = document.getElementById('orderBySurname');
             if (sortBySurnameBtn) {
                 sortBySurnameBtn.onclick = () => {
@@ -118,7 +127,6 @@ async function loadData(url = '/api/students') {
                 };
             }
 
-            // Функция поиска для студентов
             searchHandler = function performSearchStudents() {
                 const searchTerm = searchInput.value.trim().toLowerCase();
 
@@ -168,7 +176,14 @@ async function loadData(url = '/api/students') {
                 ],
             });
 
-            // Сортировка по фамилии (для учителей поле surname может отсутствовать, используем fullname)
+            currentTable.on("tableBuilt", function() {
+                countData();
+            });
+
+            currentTable.on("dataLoaded", function(data) {
+                countData();
+            });
+
             const sortBySurnameBtn = document.getElementById('orderBySurname');
             if (sortBySurnameBtn) {
                 sortBySurnameBtn.onclick = () => {
@@ -176,7 +191,6 @@ async function loadData(url = '/api/students') {
                 };
             }
 
-            // Функция поиска для учителей
             searchHandler = function performSearchTeachers() {
                 const searchTerm = searchInput.value.trim().toLowerCase();
 
@@ -221,7 +235,14 @@ async function loadData(url = '/api/students') {
                 ],
             });
 
-            // Сортировка по ФИО
+            currentTable.on("tableBuilt", function() {
+                countData();
+            });
+
+            currentTable.on("dataLoaded", function(data) {
+                countData();
+            });
+
             const sortBySurnameBtn = document.getElementById('orderBySurname');
             if (sortBySurnameBtn) {
                 sortBySurnameBtn.onclick = () => {
@@ -229,7 +250,6 @@ async function loadData(url = '/api/students') {
                 };
             }
 
-            // Функция поиска для родителей
             searchHandler = function performSearchGuardians() {
                 const searchTerm = searchInput.value.trim().toLowerCase();
 
@@ -252,7 +272,6 @@ async function loadData(url = '/api/students') {
             };
         }
 
-        // Подключаем обработчик поиска к полю ввода
         searchInput.addEventListener('input', searchHandler);
 
         console.log('✅ Таблица загружена:', url);
@@ -281,6 +300,5 @@ document.addEventListener('DOMContentLoaded', () => {
         guardiansBtn.addEventListener('click', () => loadData('/api/guardians'));
     }
 
-    // Загружаем студентов по умолчанию при первом запуске
     loadData('/api/students');
 });
