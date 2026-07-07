@@ -80,34 +80,51 @@
     <form action="{{ route('students.update', $student) }}" method="post" id="formUpdate" class="row g-3 hidden">
         @csrf
         @method('PATCH')
-        <div class="col-sm-12 col-lg-4">
+        <div class="col-sm-12 col-lg-3">
+            <label for="surname" class="form-label">Фамилия</label>
             <input type="text" name="surname" value="{{ $student->surname }}" class="form-control">
         </div>
-        <div class="col-sm-12 col-lg-4">
+        <div class="col-sm-12 col-lg-3">
+            <label for="surname" class="form-label">Имя</label>
             <input type="text" name="name" value="{{ $student->name }}" class="form-control">
         </div>
-        <div class="col-sm-12 col-lg-4">
+        <div class="col-sm-12 col-lg-3">
+            <label for="surname" class="form-label">Отчество</label>
             <input type="text" name="patronymic" value="{{ $student->patronymic }}" class="form-control">
         </div>
+        <div class="col-sm-12 col-lg-3">
+            <label for="class" class="form-label">Класс</label>
+            <select name="class" id="class" class="form-select">
+                @foreach($classes as $class)
+                    <option value="{{ $class->id }}" {{ $student->class == $class->id ? 'selected' : '' }}>{{ $class->name }}</option>
+                @endforeach
+            </select>
+        </div>
         <div class="col-sm-12 col-lg-2">
+            <label for="surname" class="form-label">СНИЛС</label>
             <input type="text" name="snils" value="{{ $student->snils }}" class="form-control">
         </div>
         <div class="col-sm-12 col-lg-2">
+            <label for="surname" class="form-label">ИНН</label>
             <input type="text" name="inn" value="{{ $student->inn }}" class="form-control">
         </div>
         <div class="col-sm-12 col-lg-2">
+            <label for="surname" class="form-label">Паспортные данные</label>
             <input type="text" name="passport_data" value="{{ $student->passport_data }}" class="form-control">
         </div>
         <div class="col-sm-12 col-lg-2">
+            <label for="surname" class="form-label">Дата рождения</label>
             <input type="date" name="birth_date" value="{{ $student->birth_date->format('Y-m-d') }}" class="form-control">
         </div>
         <div class="col-sm-12 col-lg-2">
+            <label for="surname" class="form-label">Адрес</label>
             <input type="text" name="address" value="{{ $student->address }}" class="form-control">
         </div>
         <div class="col-sm-12 col-lg-2">
+            <label for="surname" class="form-label">Статус</label>
             <input type="text" name="status" value="{{ $student->status }}" class="form-control">
         </div>
-        <button type="submit" class="btn btn--primary col-sm-12 col-lg-4">Отправить</button>
+        <button type="submit" class="btn btn--primary col-sm-12 col-lg-12">Отправить</button>
     </form>
     <h3 class="mt-3">Достижения</h3>
     <hr>

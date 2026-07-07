@@ -26,7 +26,7 @@ class StudentController extends Controller
         })->values();
         $students = [];
         foreach ($classes as $class) {
-            $students[$class->name] = Student::where('class', $class->id)->get();
+            $students[$class->name] = Student::where('class', $class->id)->orderBy('surname')->get();
         }
         return view('students.students', [
             'students' => $students,
@@ -39,12 +39,17 @@ class StudentController extends Controller
         $guardiansAll = Guardian::all();
         $guardians = $student->guardians;
         $achievements = $student->achievements;
+        $classes = SchoolClass::all()->sortBy(function($class) {
+            preg_match('/^\d+/', $class->name, $matches);
+            return $matches[0] ?? 0;
+        })->values();
 
         return view('students.show', [
             'student' => $student,
             'guardians' => $guardians,
             'achievements' => $achievements,
             'guardiansAll' => $guardiansAll,
+            'classes' => $classes,
         ]);
     }
 
@@ -54,6 +59,7 @@ class StudentController extends Controller
             'name' => $request->name,
             'surname' => $request->surname,
             'patronymic' => $request->patronymic,
+            'class' => $request->class,
             'snils' => $request->snils,
             'inn' => $request->inn,
             'passport_data' => $request->passport_data,
