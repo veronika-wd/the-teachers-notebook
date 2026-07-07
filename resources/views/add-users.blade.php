@@ -235,7 +235,7 @@
 
     <div class="col-sm-12 col-lg-2">
         <label for="surname" class="form-label">СНИЛС</label>
-        <input type="text" name="snils" class="form-control">
+        <input type="text" name="snils" class="form-control snils" placeholder="___-___-___-__" maxlength="14">
     </div>
     <div class="col-sm-12 col-lg-2">
         <label for="surname" class="form-label">ИНН</label>

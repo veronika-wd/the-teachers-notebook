@@ -172,7 +172,6 @@ async function loadData(url = '/api/students') {
                     {title: "Должность", field: "post"},
                     {title: "Образование", field: "education"},
                     {title: "Опыт работы", field: "experience"},
-                    {title: "Аттестация", field: "qualification"},
                 ],
             });
 
@@ -232,6 +231,9 @@ async function loadData(url = '/api/students') {
                     {title: "Место работы", field: "job"},
                     {title: "Адрес проживания", field: "address"},
                     {title: "Статус", field: "status"},
+                    {title: "Серия и номер паспорта", field: "passportData"},
+                    {title: "СНИЛС", field: "snils"},
+                    {title: "ИНН", field: "inn"},
                 ],
             });
 

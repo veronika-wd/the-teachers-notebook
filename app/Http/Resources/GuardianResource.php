@@ -22,7 +22,7 @@ class GuardianResource extends JsonResource
             'status' => $this->status,
             'snils' => $this->snils,
             'inn' => $this->inn,
-            'passport_data' => $this->passport_data
+            'passportData' => $this->passport_data
         ];
     }
 }
