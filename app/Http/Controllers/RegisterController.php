@@ -2,6 +2,9 @@
 
 namespace App\Http\Controllers;
 
+use App\Http\Requests\GuardianRegisterRequest;
+use App\Http\Requests\StudentRegisterRequest;
+use App\Http\Requests\UserRegisterRequest;
 use App\Models\Guardian;
 use App\Models\SchoolClass;
 use App\Models\Student;
@@ -25,7 +28,7 @@ class RegisterController extends Controller
         ]);
     }
 
-    public function user(Request $request)
+    public function user(UserRegisterRequest $request)
     {
         User::create([
             'name' => $request->name,
@@ -46,7 +49,7 @@ class RegisterController extends Controller
         return redirect()->back();
     }
 
-    public function student(Request $request)
+    public function student(StudentRegisterRequest $request)
     {
 //        dd($request->class);
         Student::create([
@@ -65,7 +68,7 @@ class RegisterController extends Controller
         return redirect()->back();
     }
 
-    public function guardian(Request $request)
+    public function guardian(GuardianRegisterRequest $request)
     {
         Guardian::create([
             'full_name' => $request->full_name,

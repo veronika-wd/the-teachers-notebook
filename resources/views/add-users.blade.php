@@ -30,6 +30,9 @@
         <div class="invalid-feedback">
             Заполните поле
         </div>
+        @error('email')
+        <p class="text-danger text-sm">{{ $message }}</p>
+        @enderror
     </div>
 
     <div class="col-sm-12 col-lg-4">
@@ -46,6 +49,9 @@
         <div class="invalid-feedback">
             Заполните поле
         </div>
+        @error('snils')
+        <p class="text-danger text-sm">{{ $message }}</p>
+        @enderror
     </div>
 
     <div class="col-sm-12 col-lg-4">
@@ -54,6 +60,9 @@
         <div class="invalid-feedback">
             Заполните поле
         </div>
+        @error('inn')
+        <p class="text-danger text-sm">{{ $message }}</p>
+        @enderror
     </div>
 
     <div class="col-sm-12 col-lg-4">
@@ -62,6 +71,9 @@
         <div class="invalid-feedback">
             Заполните поле
         </div>
+        @error('passport_data')
+        <p class="text-danger text-sm">{{ $message }}</p>
+        @enderror
     </div>
 
     <div class="col-sm-12 col-lg-4">
@@ -154,16 +166,25 @@
     <div class="col-sm-12 col-lg-2">
         <label for="student_snils" class="form-label">СНИЛС</label>
         <input type="text" name="snils" id="student_snils" placeholder="___-___-___-__" maxlength="14" class="form-control snils">
+        @error('snils')
+        <p class="text-danger text-sm">{{ $message }}</p>
+        @enderror
     </div>
 
     <div class="col-sm-12 col-lg-2">
         <label for="student_inn" class="form-label">ИНН</label>
         <input type="text" name="inn" id="student_inn" class="form-control">
+        @error('inn')
+        <p class="text-danger text-sm">{{ $message }}</p>
+        @enderror
     </div>
 
     <div class="col-sm-12 col-lg-2">
         <label for="student_passport" class="form-label">Паспортные данные</label>
         <input type="text" name="passport_data" id="student_passport" class="form-control">
+        @error('passport_data')
+        <p class="text-danger text-sm">{{ $message }}</p>
+        @enderror
     </div>
 
     <div class="col-sm-12 col-lg-2">
@@ -236,14 +257,23 @@
     <div class="col-sm-12 col-lg-2">
         <label for="surname" class="form-label">СНИЛС</label>
         <input type="text" name="snils" class="form-control snils" placeholder="___-___-___-__" maxlength="14">
+        @error('snils')
+            <p class="text-danger text-sm">{{ $message }}</p>
+        @enderror
     </div>
     <div class="col-sm-12 col-lg-2">
         <label for="surname" class="form-label">ИНН</label>
         <input type="text" name="inn" class="form-control">
+        @error('inn')
+        <p class="text-danger text-sm">{{ $message }}</p>
+        @enderror
     </div>
     <div class="col-sm-12 col-lg-2">
         <label for="surname" class="form-label">Паспортные данные</label>
         <input type="text" name="passport_data" class="form-control">
+        @error('passport_data')
+        <p class="text-danger text-sm">{{ $message }}</p>
+        @enderror
     </div>
     <div class="col-12">
         <button type="submit" class="btn btn--primary">Добавить</button>
