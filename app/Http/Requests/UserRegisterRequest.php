@@ -22,6 +22,7 @@ class UserRegisterRequest extends FormRequest
     public function messages()
     {
         return [
+            'email.unique' => 'Такая почта уже используется',
             'inn.unique' => 'Такой ИНН уже существует',
             'snils.unique' => 'Такой СНИЛС уже существует',
             'passport_data.unique' => 'Такой паспорт уже существует',
