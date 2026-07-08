@@ -21,7 +21,7 @@ class StudentResource extends JsonResource
             'surname' => $this->surname,
             'patronymic' => $this->patronymic,
             'birthDate' => date_format($this->birth_date, 'd.m.Y'),
-            'class' => $this->class,
+            'class' => $this->schoolClass->name,
             'passportData' => $this->passport_data,
             'address' => $this->address,
             'status' => $this->status,
