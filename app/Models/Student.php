@@ -67,7 +67,7 @@ class Student extends Model
 
     public function schoolClass(): BelongsTo
     {
-        return $this->belongsTo(SchoolClass::class);
+        return $this->belongsTo(SchoolClass::class, 'class');
     }
 
     public function guardians(): BelongsToMany
