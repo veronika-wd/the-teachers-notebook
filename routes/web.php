@@ -68,6 +68,7 @@ Route::middleware(['auth'])->group(function () {
         Route::get('/students/transfer', [StudentController::class, 'promoteAll'])->name('students.transfer');
         Route::delete('/students/{student}', [StudentController::class, 'destroy'])->name('students.destroy');
         Route::post('/guardians/{student}', [StudentController::class, 'storeGuardian'])->name('students.guardian.store');
+        Route::delete('/guardians/{guardian}/{student}', [StudentController::class, 'removeGuardian'])->name('students.removeGuardian');
     });
     Route::prefix('guardians')->group(function () {
         Route::get('/{guardian}', [GuardianController::class, 'show'])->name('guardians.show');

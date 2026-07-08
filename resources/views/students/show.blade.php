@@ -15,11 +15,19 @@
         @method('DELETE')
         <button type="submit" class="btn btn--secondary mb-3">Удалить ученика</button>
     </form>
-    <p>Родители:
+    <div>
+        <p>Родители:</p>
     @foreach($guardians as $guardian)
+        <div class="col-lg-4 d-flex gap-3 align-items-center justify-content-center mb-3">
             <a href="{{ route('guardians.show', $guardian) }}" class="btn btn--outline">{{ $guardian->full_name }}</a>
+            <form action="{{ route('students.removeGuardian', [$guardian, $student]) }}" method="post">
+                @csrf
+                @method('DELETE')
+                <button type="submit" class="btn btn-outline-danger">x</button>
+            </form>
+        </div>
     @endforeach
-    </p>
+    </div>
     <h4>Добавить родителя</h4>
     <form action="{{ route('students.guardian.store', $student) }}" method="post" class="w-50 d-flex gap-3 align-items-center justify-content-start mb-3">
         @csrf

@@ -45,33 +45,33 @@
 
     <div class="col-sm-12 col-lg-4">
         <label for="worker_snils" class="form-label">СНИЛС *</label>
-        <input type="text" name="snils" id="worker_snils" placeholder="___-___-___-__" maxlength="14" class="form-control snils" required>
+        <input type="text" name="snils_user" id="worker_snils" placeholder="___-___-___-__" maxlength="14" class="form-control snils" required>
         <div class="invalid-feedback">
             Заполните поле
         </div>
-        @error('snils')
+        @error('snils_user')
         <p class="text-danger text-sm">{{ $message }}</p>
         @enderror
     </div>
 
     <div class="col-sm-12 col-lg-4">
         <label for="worker_inn" class="form-label">ИНН *</label>
-        <input type="text" name="inn" id="worker_inn" class="form-control" required>
+        <input type="text" name="inn_user" id="worker_inn" class="form-control" required>
         <div class="invalid-feedback">
             Заполните поле
         </div>
-        @error('inn')
+        @error('inn_user')
         <p class="text-danger text-sm">{{ $message }}</p>
         @enderror
     </div>
 
     <div class="col-sm-12 col-lg-4">
         <label for="worker_passport" class="form-label">Паспортные данные *</label>
-        <input type="text" name="passport_data" id="worker_passport" class="form-control" required>
+        <input type="text" name="passport_data_user" id="worker_passport" class="form-control" required>
         <div class="invalid-feedback">
             Заполните поле
         </div>
-        @error('passport_data')
+        @error('passport_data_user')
         <p class="text-danger text-sm">{{ $message }}</p>
         @enderror
     </div>
@@ -165,24 +165,24 @@
 
     <div class="col-sm-12 col-lg-2">
         <label for="student_snils" class="form-label">СНИЛС</label>
-        <input type="text" name="snils" id="student_snils" placeholder="___-___-___-__" maxlength="14" class="form-control snils">
-        @error('snils')
+        <input type="text" name="snils_student" id="student_snils" placeholder="___-___-___-__" maxlength="14" class="form-control snils">
+        @error('snils_student')
         <p class="text-danger text-sm">{{ $message }}</p>
         @enderror
     </div>
 
     <div class="col-sm-12 col-lg-2">
         <label for="student_inn" class="form-label">ИНН</label>
-        <input type="text" name="inn" id="student_inn" class="form-control">
-        @error('inn')
+        <input type="text" name="inn_student" id="student_inn" class="form-control">
+        @error('inn_student')
         <p class="text-danger text-sm">{{ $message }}</p>
         @enderror
     </div>
 
     <div class="col-sm-12 col-lg-2">
         <label for="student_passport" class="form-label">Паспортные данные</label>
-        <input type="text" name="passport_data" id="student_passport" class="form-control">
-        @error('passport_data')
+        <input type="text" name="passport_data_student" id="student_passport" class="form-control">
+        @error('passport_data_student')
         <p class="text-danger text-sm">{{ $message }}</p>
         @enderror
     </div>
@@ -256,22 +256,22 @@
 
     <div class="col-sm-12 col-lg-2">
         <label for="surname" class="form-label">СНИЛС</label>
-        <input type="text" name="snils" class="form-control snils" placeholder="___-___-___-__" maxlength="14">
-        @error('snils')
+        <input type="text" name="snils_guardian" class="form-control snils" placeholder="___-___-___-__" maxlength="14">
+        @error('snils_guardian')
             <p class="text-danger text-sm">{{ $message }}</p>
         @enderror
     </div>
     <div class="col-sm-12 col-lg-2">
         <label for="surname" class="form-label">ИНН</label>
-        <input type="text" name="inn" class="form-control">
-        @error('inn')
+        <input type="text" name="inn_guardian" class="form-control">
+        @error('inn_guardian')
         <p class="text-danger text-sm">{{ $message }}</p>
         @enderror
     </div>
     <div class="col-sm-12 col-lg-2">
         <label for="surname" class="form-label">Паспортные данные</label>
-        <input type="text" name="passport_data" class="form-control">
-        @error('passport_data')
+        <input type="text" name="passport_data_guardian" class="form-control">
+        @error('passport_data_guardian')
         <p class="text-danger text-sm">{{ $message }}</p>
         @enderror
     </div>

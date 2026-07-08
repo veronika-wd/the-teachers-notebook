@@ -13,9 +13,9 @@ class UserRegisterRequest extends FormRequest
     {
         return [
             'email' => [Rule::unique(User::class, 'email')],
-            'snils' => [Rule::unique(User::class, 'snils')],
-            'inn' => [Rule::unique(User::class, 'inn')],
-            'passport_data' => [Rule::unique(User::class, 'passport_data')],
+            'snils_user' => [Rule::unique(User::class, 'snils')],
+            'inn_user' => [Rule::unique(User::class, 'inn')],
+            'passport_data_user' => [Rule::unique(User::class, 'passport_data')],
         ];
     }
 
@@ -23,9 +23,9 @@ class UserRegisterRequest extends FormRequest
     {
         return [
             'email.unique' => 'Такая почта уже используется',
-            'inn.unique' => 'Такой ИНН уже существует',
-            'snils.unique' => 'Такой СНИЛС уже существует',
-            'passport_data.unique' => 'Такой паспорт уже существует',
+            'inn_user.unique' => 'Такой ИНН уже существует',
+            'snils_user.unique' => 'Такой СНИЛС уже существует',
+            'passport_data_user.unique' => 'Такой паспорт уже существует',
         ];
     }
 }

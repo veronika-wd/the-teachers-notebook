@@ -166,4 +166,11 @@ class StudentController extends Controller
         return redirect()->back();
     }
 
+    public function removeGuardian(Guardian $guardian, Student $student)
+    {
+        $guardian->students()->detach($student->id);
+
+        return redirect()->back();
+    }
+
 }

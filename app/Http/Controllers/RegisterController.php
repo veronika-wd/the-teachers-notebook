@@ -35,9 +35,9 @@ class RegisterController extends Controller
             'email' => $request->email,
             'password' => Hash::make($request->password),
             'role' => $request->role,
-            'snils' => $request->snils,
-            'inn' => $request->inn,
-            'passport_data' => $request->passport_data,
+            'snils' => $request->snils_user,
+            'inn' => $request->inn_user,
+            'passport_data' => $request->passport_data_user,
             'birth_date' => $request->birth_date,
             'post' => $request->post,
             'phone' => $request->phone,
@@ -58,9 +58,9 @@ class RegisterController extends Controller
             'patronymic' => $request->patronymic,
             'birth_date' => $request->birth_date,
             'class' => $request->class,
-            'snils' => $request->snils,
-            'inn' => $request->inn,
-            'passport_data' => $request->passport_data,
+            'snils' => $request->snils_student,
+            'inn' => $request->inn_student,
+            'passport_data' => $request->passport_data_student,
             'address' => $request->address,
             'status' => $request->status,
         ]);
@@ -76,9 +76,9 @@ class RegisterController extends Controller
             'address' => $request->address,
             'job' => $request->job,
             'status' => $request->status,
-            'snils' => $request->snils,
-            'inn' => $request->inn,
-            'passport_data' => $request->passport_data,
+            'snils' => $request->snils_guardian,
+            'inn' => $request->inn_guardian,
+            'passport_data' => $request->passport_data_guardian,
         ]);
 
         return redirect()->back();
