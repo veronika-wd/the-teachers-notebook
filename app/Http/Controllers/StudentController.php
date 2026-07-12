@@ -36,7 +36,7 @@ class StudentController extends Controller
 
     public function show(Student $student)
     {
-        $guardiansAll = Guardian::all();
+        $guardiansAll = Guardian::orderBy('full_name')->get();
         $guardians = $student->guardians;
         $achievements = $student->achievements;
         $classes = SchoolClass::all()->sortBy(function($class) {
