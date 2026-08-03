@@ -145,8 +145,8 @@
             <input type="text" name="name" id="name" class="form-control" required>
         </div>
         <div class="form-group">
-            <label for="file">Загрузить файл:</label>
-            <input type="file" name="file" id="file" class="form-control" required>
+            <label for="link">Вставьте ссылку:</label>
+            <input type="text" name="link" id="link" class="form-control" required>
         </div>
         <button type="submit" class="btn btn--primary">Добавить</button>
     </form>
@@ -159,7 +159,7 @@
                         <p>{{ $achievement->name }}</p>
                     </div>
                     <div class="card-body d-flex flex-column align-items-center">
-                        <img src="{{ \Illuminate\Support\Facades\Storage::url($achievement->path) }}" class="img-fluid" alt="img">
+                        <p class="text-sm">Ссылка: <a class="active-link" href="{{ $achievement->path }}">{{ $achievement->path }}</a></p>
                         <p>{{ date_format($achievement->created_at, 'd/m/Y') }}</p>
                     </div>
                 </div>

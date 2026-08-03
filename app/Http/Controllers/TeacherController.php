@@ -70,7 +70,7 @@ class TeacherController extends Controller
 
         $user->achievements()->create([
             'name' => $request->name,
-            'path' => $this->uploadService->uploadFileAchievement($request),
+            'path' => $request->link,
         ]);
 
         return redirect()->back();

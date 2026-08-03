@@ -87,7 +87,7 @@ class StudentController extends Controller
     {
         $student->achievements()->create([
             'name' => $request->name,
-            'path' => $this->uploadService->uploadFileAchievement($request),
+            'path' => $request->link,
         ]);
 
         return redirect()->back();

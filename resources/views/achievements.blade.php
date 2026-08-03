@@ -11,7 +11,7 @@
                         <p>{{ $achievement->name }}</p>
                     </div>
                     <div class="card-body d-flex flex-column align-items-center">
-                        <img src="{{ \Illuminate\Support\Facades\Storage::url($achievement->path) }}" class="img-fluid" alt="img">
+                        <p class="text-sm">Ссылка: <a class="active-link" href="{{ $achievement->path }}">{{ $achievement->path }}</a></p>
                         <p>{{ date_format($achievement->created_at, 'd/m/Y') }}</p>
                     </div>
                 </div>

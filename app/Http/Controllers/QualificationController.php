@@ -34,7 +34,7 @@ class QualificationController extends Controller
     {
         Qualification::create([
             'title' => $request->title,
-            'image' => $this->uploadService->uploadQualification($request),
+            'image' => $request->link,
             'date_start' => $request->date_start,
             'date_end' => $request->date_end,
             'user_id' => auth()->id(),

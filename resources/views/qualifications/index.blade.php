@@ -12,8 +12,8 @@
             <input type="text" name="title" id="name" class="form-control" required>
         </div>
         <div class="form-group">
-            <label for="file">Загрузить файл:</label>
-            <input type="file" name="img" id="file" class="form-control" required>
+            <label for="link">Вставьте ссылку:</label>
+            <input type="text" name="link" id="link" class="form-control" required>
         </div>
         <div class="form-group">
             <label for="dateStart">Дата начала:</label>
@@ -50,7 +50,7 @@
                                 </div>
                             @endif
                         @endif
-                        <img src="{{ \Illuminate\Support\Facades\Storage::url($qualification->image) }}" class="img-fluid" alt="img">
+                        <p class="text-sm">Ссылка: <a class="active-link" href="{{ $qualification->image }}">{{ $qualification->image }}</a></p>
                         <p>{{ $qualification->date_start . ' - ' . $qualification->date_end }}</p>
                     </div>
                 </div>

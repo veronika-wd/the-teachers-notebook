@@ -202,7 +202,7 @@ class ScheduleController extends Controller
                     if (!isset($subjectNames[$lesson['subject_id']])) continue;
 
                     $dataToInsert[] = [
-                        'subject'    => $subjectNames[$lesson['subject_id']],
+                        'subject_id'    => $subjectNames[$lesson['subject_id']],
                         'day'        => (int) $dayId,
                         'number'     => (int) $lessonIndex + 1,
                         'class'      => $classNames[$classId],
@@ -235,7 +235,7 @@ class ScheduleController extends Controller
                     }
 
                     $dataToUpsert[] = [
-                        'subject'    => isset($lesson['subject_id']) && isset($subjectNames[$lesson['subject_id']])
+                        'subject_id'    => isset($lesson['subject_id']) && isset($subjectNames[$lesson['subject_id']])
                             ? $subjectNames[$lesson['subject_id']] : '',
                         'day'        => (int) $dayId,
                         'number'     => (int) $lessonIndex + 1,
@@ -253,7 +253,7 @@ class ScheduleController extends Controller
             Schedule::upsert(
                 $dataToUpsert,
                 ['class', 'day', 'number'],
-                ['subject', 'cabinet', 'user_id', 'updated_at']
+                ['subject_id', 'cabinet', 'user_id', 'updated_at']
             );
         }
 
