@@ -29,7 +29,7 @@
                                 </div>
                             @endif
                         @endif
-                        <img src="{{ \Illuminate\Support\Facades\Storage::url($qualification->image) }}" class="img-fluid" alt="img">
+                        <p class="text-sm">Ссылка: <a class="active-link" href="{{ $qualification->image }}">{{ $qualification->image }}</a></p>
                         <p>{{ $qualification->date_start . ' - ' . $qualification->date_end }}</p>
                     </div>
                 </div>

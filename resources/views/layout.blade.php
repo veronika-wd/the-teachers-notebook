@@ -4,6 +4,8 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="csrf-token" content="{{ csrf_token() }}">
+
     <link rel="stylesheet" href="{{ asset('css/main.css') }}">
     @stack('styles')
     <link rel="icon" type="image/x-icon" href="media/favicon.png">
@@ -97,6 +99,10 @@
                     <li class="nav-item">
                         <a class="nav-link text-white-50 hover-white {{ request()->routeIs('documents.*') ? 'active text-white fw-semibold' : '' }}"
                            href="{{ route('documents.index') }}">Документы</a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link text-white-50 hover-white {{ request()->routeIs('activities.*') ? 'active text-white fw-semibold' : '' }}"
+                           href="{{ route('activities.classes.index') }}">Внеурочная деятельность</a>
                     </li>
                 </ul>
 

@@ -107,6 +107,28 @@ class Student extends Model
             ->sum('amount');
     }
 
+    /**
+     * Кружки, на которые записан ученик
+     */
+    public function activities(): BelongsToMany
+    {
+        return $this->belongsToMany(
+            Activity::class,
+            'student_activity',
+            'student_id',
+            'activity_id'
+        )->withPivot(['enrolled_at', 'withdrawn_at'])
+            ->wherePivotNull('withdrawn_at');
+    }
+
+    /**
+     * Все записи на кружки (pivot)
+     */
+    public function studentActivities(): HasMany
+    {
+        return $this->hasMany(StudentActivity::class);
+    }
+
     protected $casts = [
         'birth_date' => 'date',
     ];

@@ -1,7 +1,9 @@
 <?php
 
 use App\Http\Controllers\AchievementController;
+use App\Http\Controllers\ActivityController;
 use App\Http\Controllers\AttendanceController;
+use App\Http\Controllers\ClassActivityController;
 use App\Http\Controllers\CompetitionController;
 use App\Http\Controllers\DocumentController;
 use App\Http\Controllers\EventController;
@@ -121,7 +123,44 @@ Route::middleware(['auth'])->group(function () {
 
 });
 
+// Страница со списком классов + ссылки на кружки
+Route::get('/activities/classes', [ClassActivityController::class, 'index'])
+    ->name('activities.classes.index');
 
+
+// СТАЛО (правильно — Route Model Binding по school_classes):
+Route::get('/activities/classes/{schoolClass}', [ClassActivityController::class, 'show'])
+    ->name('activities.classes.show');
+
+// AJAX переключение записи
+Route::post('/activities/toggle-enrollment', [ClassActivityController::class, 'toggle'])
+    ->name('activities.toggle-enrollment');
+
+// Создание кружка
+Route::get('/activities/create', [ActivityController::class, 'create'])
+    ->name('activities.create');
+Route::post('/activities', [ActivityController::class, 'store'])
+    ->name('activities.store');
+
+// Посещаемость кружка
+Route::get('/activities/{activity}/attendance', [ActivityController::class, 'showAttendance'])
+    ->name('activities.attendance');
+Route::post('/activities/{activity}/attendance', [ActivityController::class, 'saveAttendance'])
+    ->name('activities.attendance.save');
+
+// Темы занятий
+Route::get('/activities/{activity}/themes', [ActivityController::class, 'showThemes'])
+    ->name('activities.themes');
+Route::post('/activities/{activity}/themes', [ActivityController::class, 'storeTheme'])
+    ->name('activities.themes.store');
+Route::delete('/activities/{activity}/themes/{theme}', [ActivityController::class, 'destroyTheme'])
+    ->name('activities.themes.destroy');
+
+// Управление записью учеников
+Route::get('/activities/{activity}/enrollment', [ActivityController::class, 'manageEnrollment'])
+    ->name('activities.enrollment');
+Route::post('/activities/{activity}/enrollment', [ActivityController::class, 'toggleEnrollment'])
+    ->name('activities.enrollment.toggle');
 
 
 
