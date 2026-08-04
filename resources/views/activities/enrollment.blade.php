@@ -15,7 +15,7 @@
                 </small>
             </div>
             <div>
-                <form action="{{ route('activities.destroy', $activity) }}" method="post" onsubmit="return confirm('Удалить эту тему?')">
+                <form action="{{ route('activities.destroy', $activity) }}" method="post" onsubmit="return confirm('Удалить этот кружок?')">
                     @csrf
                     @method('DELETE')
                     <button type="submit" class="btn btn-danger mb-3">Удалить кружок</button>
