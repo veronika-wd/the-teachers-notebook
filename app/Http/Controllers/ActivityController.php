@@ -49,7 +49,7 @@ class ActivityController extends Controller
         Activity::create($validated);
 
         return redirect()
-            ->route('activities.index')
+            ->route('activities.classes.index')
             ->with('success', 'Кружок успешно создан!');
     }
 
