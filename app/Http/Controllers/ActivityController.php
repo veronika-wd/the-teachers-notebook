@@ -231,4 +231,11 @@ class ActivityController extends Controller
 
         return redirect()->back()->with('success', $message);
     }
+
+    public function destroy(Activity $activity)
+    {
+        $activity->delete();
+
+        return redirect()->route('activities.classes.index');
+    }
 }

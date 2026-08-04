@@ -162,6 +162,8 @@ Route::get('/activities/{activity}/enrollment', [ActivityController::class, 'man
 Route::post('/activities/{activity}/enrollment', [ActivityController::class, 'toggleEnrollment'])
     ->name('activities.enrollment.toggle');
 
+// Удаление кружка
+Route::delete('/activities/{activity}', [ActivityController::class, 'destroy'])->name('activities.destroy');
 
 
 Route::prefix('api/events')->group(function () {

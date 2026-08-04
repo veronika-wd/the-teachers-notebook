@@ -29,9 +29,17 @@
                     @if($activity->room) | Каб. {{ $activity->room }} @endif
                 </small>
             </div>
-            <a href="{{ route('activities.classes.index') }}" class="btn btn-secondary">
-                ← Назад
-            </a>
+            <div>
+                <form action="{{ route('activities.destroy', $activity) }}" method="post" onsubmit="return confirm('Удалить эту тему?')">
+                    @csrf
+                    @method('DELETE')
+                    <button type="submit" class="btn btn-danger mb-3">Удалить кружок</button>
+                </form>
+                <a href="{{ route('activities.classes.index') }}" class="btn btn-secondary">
+                    ← Назад
+                </a>
+            </div>
+
         </div>
 
         @if(session('success'))
