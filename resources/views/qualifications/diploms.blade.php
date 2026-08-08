@@ -2,7 +2,7 @@
 @section('title', 'Квалификации')
 @section('content')
         <h2>Квалификации</h2>
-        <a href="{{ route('qualifications.degree.index') }}"><button class="btn btn--primary">Переподготовки</button></a>
+        <a href="{{ route('qualifications.index') }}"><button class="btn btn--primary">Курсы</button></a>
     <hr>
     <h4>Добавить</h4>
     <form action="{{ route('qualifications.create') }}" method="post" class="d-flex gap-3 align-items-end mb-4"
@@ -19,10 +19,6 @@
         <div class="form-group">
             <label for="dateStart">Дата начала:</label>
             <input type="date" name="date_start" id="dateStart" class="form-control" required>
-        </div>
-        <div class="form-group">
-            <label for="dateEnd">Дата окончания:</label>
-            <input type="date" name="date_end" id="dateEnd" class="form-control">
         </div>
         <button type="submit" class="btn btn--primary">Добавить</button>
     </form>
@@ -42,17 +38,9 @@
                                 $reminderDate = $dateEnd->copy()->subMonths(6);
                                 $now = \Carbon\Carbon::now();
                             @endphp
-
-                            {{-- Условие: сейчас уже настало время напоминания, но квалификация еще не истекла --}}
-                            @if($now->greaterThanOrEqualTo($reminderDate) && $now->lessThan($dateEnd))
-                                <div class="alert alert-danger">
-                                    Напоминание: Срок действия квалификации истекает менее чем через 6 месяцев
-                                    ({{ $dateEnd->format('d.m.Y') }}).
-                                </div>
-                            @endif
                         @endif
                         <p class="text-sm">Ссылка: <a class="active-link" href="{{ $qualification->image }}">{{ $qualification->image }}</a></p>
-                        <p>{{ $qualification->date_start . ' - ' . $qualification->date_end }}</p>
+                        <p>{{ $qualification->date_start }}</p>
                         <form action="{{ route('qualifications.destroy', $qualification) }}"
                               method="POST"
                               onsubmit="return confirm('Удалить эту запись?')">

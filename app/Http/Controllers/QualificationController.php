@@ -16,7 +16,7 @@ class QualificationController extends Controller
 
     public function index()
     {
-        $qualifications = Qualification::query()->where('user_id', auth()->id())->orderByDesc('id')->get();
+        $qualifications = Qualification::query()->where('date_end', '<' ,'2090-01-01')->get();
 
         return view('qualifications.index', [
             'qualifications' => $qualifications,
@@ -30,16 +30,31 @@ class QualificationController extends Controller
         ]);
     }
 
+    public function degree()
+    {
+        $qualifications = Qualification::query()->where('date_end', '2090-01-01')->get();
+        return view('qualifications.diploms', [
+            'qualifications' => $qualifications,
+        ]);
+    }
+
     public function store(Request $request)
     {
         Qualification::create([
             'title' => $request->title,
             'image' => $request->link,
             'date_start' => $request->date_start,
-            'date_end' => $request->date_end,
+            'date_end' => $request->date_end ? $request->date_end : '2090-01-01',
             'user_id' => auth()->id(),
         ]);
 
-        return redirect()->route('qualifications.index');
+        return redirect()->back();
+    }
+
+    public function destroy(Qualification $qualification)
+    {
+        $qualification->delete();
+
+        return redirect()->back();
     }
 }

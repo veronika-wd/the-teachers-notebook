@@ -95,7 +95,9 @@ Route::middleware(['auth'])->group(function () {
     });
     Route::prefix('qualifications')->group(function () {
         Route::get('/', [QualificationController::class, 'index'])->name('qualifications.index');
+        Route::get('/degree', [QualificationController::class, 'degree'])->name('qualifications.degree.index');
         Route::post('/create', [QualificationController::class, 'store'])->name('qualifications.create');
+        Route::delete('/{qualification}', [QualificationController::class, 'destroy'])->name('qualifications.destroy');
     });
 
     Route::prefix('competitions')->group(function () {
