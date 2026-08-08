@@ -105,6 +105,7 @@ Route::middleware(['auth'])->group(function () {
         Route::get('/{competition}', [CompetitionController::class, 'show'])->name('competitions.show');
         Route::post('/{competition}/add-student', [CompetitionController::class, 'addStudent'])->name('competitions.addStudent');
         Route::post('/{competition}/remove-student', [CompetitionController::class, 'removeStudent'])->name('competitions.removeStudent');
+        Route::delete('/{competition}/delete', [CompetitionController::class, 'delete'])->name('competition.destroy');
     });
 
     Route::prefix('documents')->group(function () {

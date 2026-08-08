@@ -26,6 +26,17 @@
                             {{ $competition->title }}
                         </div>
                         <a href="{{ route('competitions.show', $competition) }}" class="btn btn--primary">Перейти</a>
+                        @admin
+                        <form action="{{ route('competition.destroy', $competition) }}"
+                              method="POST"
+                              onsubmit="return confirm('Удалить этот конкурс?')">
+                            @csrf
+                            @method('DELETE')
+                            <button type="submit" class="btn btn--secondary btn-sm py-0 px-2 mt-3">
+                                Удалить
+                            </button>
+                        </form>
+                        @endadmin
                     </div>
                     <div class="card-body">
                         <p>{{ $competition->description }}</p>

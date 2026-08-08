@@ -126,4 +126,11 @@ class CompetitionController extends Controller
 
         return redirect()->back()->with('success', 'Файл успешно удалён!');
     }
+
+    public function delete(Competition $competition)
+    {
+        $competition->delete();
+
+        return redirect()->back();
+    }
 }
