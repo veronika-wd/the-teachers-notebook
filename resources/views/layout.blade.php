@@ -6,7 +6,6 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <meta name="csrf-token" content="{{ csrf_token() }}">
 
-    <link rel="stylesheet" href="{{ asset('css/main.css') }}">
     @stack('styles')
     <link rel="icon" type="image/x-icon" href="media/favicon.png">
 
@@ -16,11 +15,13 @@
           rel="stylesheet">
 
     <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.8/dist/css/bootstrap.min.css">
+    <link rel="stylesheet" href="{{ asset('css/main.css') }}">
+
     <title>@yield('title')</title>
 </head>
 <body class="d-flex flex-column min-vh-100">
 <header class="sticky-top border-bottom shadow-sm" style="background-color: #7120A6;">
-    <nav class="navbar navbar-expand-xl navbar-dark py-2 py-xl-3">
+    <nav class="navbar navbar-expand-xxxl navbar-dark py-2 py-xl-3">
         <div class="container-fluid px-3 px-xl-5">
 
             <!-- Логотип -->
@@ -213,20 +214,6 @@
                 </ul>
             </div>
             @endadmin
-            <!-- Раздел: Контакты / Доп. ссылки -->
-            <div class="col-6 col-md-2">
-                <h6 class="fw-semibold mb-3">Ещё</h6>
-                <ul class="nav flex-column gap-2">
-                    <li><a href="#" class="nav-link p-0 text-body-secondary link-underline-opacity-0 link-underline-opacity-100-hover">Помощь</a></li>
-                    <li><a href="#" class="nav-link p-0 text-body-secondary link-underline-opacity-0 link-underline-opacity-100-hover">Политика конфиденциальности</a></li>
-                    <li>
-                        <form method="POST" action="{{ route('logout') }}" class="d-inline">
-                            @csrf
-                            <button type="submit" class="nav-link p-0 text-body-secondary link-underline-opacity-0 link-underline-opacity-100-hover border-0 bg-transparent p-0">Выйти</button>
-                        </form>
-                    </li>
-                </ul>
-            </div>
         </div>
 
         <!-- Нижняя полоса с копирайтом -->

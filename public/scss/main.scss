@@ -1,4 +1,3 @@
-//@use "login";
 @use "variables" as *;
 @use 'button';
 @use "bg";
@@ -10,13 +9,11 @@
     font-family: Montserrat;
 }
 
-
 main {
     width: 90%;
     margin: 20px auto;
 }
 
-/* === Responsive Header Styles === */
 header[style*="background-color: #7120A6"] {
     background-color: #7120A6 !important;
 }
@@ -51,7 +48,7 @@ header[style*="background-color: #7120A6"] {
     font-size: 1.2em;
 }
 
-@media (min-width: 1200px) {
+@media (min-width: 1600px) {
     .navbar-brand svg {
         width: 56px;
         height: 56px;
@@ -59,7 +56,7 @@ header[style*="background-color: #7120A6"] {
 }
 
 /* Мобильное меню */
-@media (max-width: 1199px) {
+@media (max-width: 1600px) {
     .navbar-collapse {
         background-color: rgba(113, 32, 166, 0.98);
         padding: 1rem;
@@ -461,10 +458,33 @@ details > *:not(summary) {
     }
 }
 
-@media (min-width: 1200px) {
+@media (min-width: 1600px) {
     .calendar-day,
     .calendar-day-header {
         font-size: 1rem;
         min-height: 40px;
     }
+
 }
+
+@media (min-width: 1600px) {
+    .navbar-expand-xxxl {
+        flex-wrap: nowrap;
+        justify-content: flex-start;
+    }
+
+    .navbar-expand-xxxl .navbar-toggler {
+        display: none;
+    }
+
+    .navbar-expand-xxxl .navbar-collapse {
+        display: flex!important;
+        flex-basis: auto;
+    }
+
+    .navbar-expand-xxxl .navbar-nav {
+        flex-direction: row;
+    }
+}
+
+
