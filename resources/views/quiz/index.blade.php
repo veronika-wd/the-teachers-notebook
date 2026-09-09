@@ -4,7 +4,7 @@
 
 @section('content')
     <div class="container py-4">
-        <h1 class="mb-4">Виды</h1>
+        <h1 class="mb-4">Классы</h1>
 
         <div class="row">
             @forelse($schoolClasses as $class)
