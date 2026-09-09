@@ -31,6 +31,7 @@
             @endforelse
         </div>
 
+        @admin
         <div class="row">
             <div class="col-sm-12 col-lg-6">
                 <h3>Виды КР</h3>
@@ -78,5 +79,6 @@
                 </ul>
             </div>
         </div>
+        @endadmin
     </div>
 @endsection
