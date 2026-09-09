@@ -23,15 +23,15 @@
             <div class="col-sm-12 col-lg-2">
                 <button type="submit" class="btn btn--primary btn-lg">Получить расписание</button>
             </div>
+            <div class="col-sm-12 col-lg-2">
+                <a href="{{ route('quizzes.index') }}" class="btn btn--primary">Контрольные работы</a>
+            </div>
             @admin
             <div class="col-sm-12 col-lg-2">
                 <a href="{{ route('schedule.edit') }}" class="btn btn--primary">Добавить изменения</a>
             </div>
             <div class="col-sm-12 col-lg-2">
                 <a href="{{ route('schedule.replace.form') }}" class="btn btn--primary">Создать новое расписание</a>
-            </div>
-            <div class="col-sm-12 col-lg-2">
-                <a href="{{ route('quizzes.index') }}" class="btn btn--primary">Контрольные работы</a>
             </div>
             @endadmin
         </div>
