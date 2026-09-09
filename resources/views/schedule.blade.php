@@ -8,8 +8,9 @@
     <hr>
 
     <form class="mb-4">
-        <div class="row">
-            <div class="col-sm-12 col-lg-3">
+        <div class="row d-flex align-items-center">
+            <div class="col-sm-12 col-lg-4">
+                <p>Выберите день недели:</p>
                 <select name="day" id="day" class="form-control">
                     <option value="">Выбрать день недели</option>
                     <option value="1" {{ $day == 1 ? 'selected' : '' }}>Понедельник</option>
@@ -19,15 +20,18 @@
                     <option value="5" {{ $day == 5 ? 'selected' : '' }}>Пятница</option>
                 </select>
             </div>
-            <div class="col-sm-12 col-lg-3">
+            <div class="col-sm-12 col-lg-2">
                 <button type="submit" class="btn btn--primary btn-lg">Получить расписание</button>
             </div>
             @admin
-            <div class="col-sm-12 col-lg-3">
+            <div class="col-sm-12 col-lg-2">
                 <a href="{{ route('schedule.edit') }}" class="btn btn--primary">Добавить изменения</a>
             </div>
-            <div class="col-sm-12 col-lg-3">
+            <div class="col-sm-12 col-lg-2">
                 <a href="{{ route('schedule.replace.form') }}" class="btn btn--primary">Создать новое расписание</a>
+            </div>
+            <div class="col-sm-12 col-lg-2">
+                <a href="{{ route('quizzes.index') }}" class="btn btn--primary">Контрольные работы</a>
             </div>
             @endadmin
         </div>

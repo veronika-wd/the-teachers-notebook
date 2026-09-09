@@ -13,6 +13,7 @@ use App\Http\Controllers\LoginController;
 use App\Http\Controllers\NotificationController;
 use App\Http\Controllers\PlanController;
 use App\Http\Controllers\QualificationController;
+use App\Http\Controllers\QuizController;
 use App\Http\Controllers\RegisterController;
 use App\Http\Controllers\ScheduleController;
 use App\Http\Controllers\StudentController;
@@ -106,6 +107,19 @@ Route::middleware(['auth'])->group(function () {
         Route::post('/{competition}/add-student', [CompetitionController::class, 'addStudent'])->name('competitions.addStudent');
         Route::post('/{competition}/remove-student', [CompetitionController::class, 'removeStudent'])->name('competitions.removeStudent');
         Route::delete('/{competition}/delete', [CompetitionController::class, 'delete'])->name('competition.destroy');
+    });
+
+    Route::prefix('quizzes')->group(function () {
+        Route::get('/', [QuizController::class, 'index'])->name('quizzes.index');
+        Route::post('/level', [QuizController::class, 'storeLevel'])->name('quizzes.storeLevel');
+        Route::post('/type', [QuizController::class, 'storeType'])->name('quizzes.storeType');
+        Route::get('/{schoolClass}', [QuizController::class, 'show'])->name('quizzes.show');
+        Route::post('/{schoolClass}', [QuizController::class, 'store'])->name('quizzes.store');
+        Route::delete('/{quiz}', [QuizController::class, 'destroy'])->name('quizzes.destroy');
+//        Route::get('/export-excel', [QuizController::class, 'exportExcel'])->name('quizzes.export');
+
+        Route::delete('/level/{level}/delete', [QuizController::class, 'destroyLevel'])->name('quizzes.destroyLevel');
+        Route::delete('/type/{type}/delete', [QuizController::class, 'destroyType'])->name('quizzes.destroyType');
     });
 
     Route::prefix('documents')->group(function () {
