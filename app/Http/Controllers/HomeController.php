@@ -19,68 +19,88 @@ class HomeController extends Controller
         $currentDayOfWeek = Carbon::now()->dayOfWeek;
         $day = ($currentDayOfWeek == 0 || $currentDayOfWeek == 6) ? 5 : $currentDayOfWeek;
 
-        // 2. Изменения за сегодня с учителем
+        // 2. Получаем все классы
+        $classes = SchoolClass::all()->sortBy(function ($class) {
+            preg_match('/^\d+/', $class->name, $matches);
+            return sprintf('%02d_%s', (int)($matches[0] ?? 0), $class->name);
+        })->values();
+
+        // 3. Изменения за сегодня
         $todayDate = Carbon::now()->format('Y-m-d');
         $changes = Change::query()
             ->where('date', $todayDate)
-            ->with(['subject', 'teacher']) // Подгружаем и предмет, и учителя замены
+            ->with(['subject', 'teacher'])
             ->get();
 
-        // 3. Индекс изменений
+        // 4. Индекс изменений для быстрого поиска
         $changesMap = [];
         foreach ($changes as $change) {
+            // school_class_id - это ID класса из таблицы school_classes
             $key = $change->school_class_id . '_' . $change->number;
             $changesMap[$key] = $change;
         }
 
-        $schedule = []; // Обратите внимание на переменную $shedule, как у вас в шаблоне
+        // 5. Загружаем расписание как в рабочем контроллере
+        $schedules = Schedule::where('day', $day)
+            ->with(['subject', 'teacher'])
+            ->get()
+            ->groupBy('class');
 
-        for ($i = 1; $i <= 7; $i++) {
-            $lessons = Schedule::query()
-                ->with('teacher')
-                ->where('day', $day)
-                ->where('number', $i)
-                ->orderBy('class')
-                ->get();
+        // 6. Создаем маппинг: ID класса -> название класса
+        $classIdToName = SchoolClass::pluck('name', 'id')->toArray();
 
-            foreach ($lessons as $lesson) {
-                $searchKey = $lesson->class . '_' . $lesson->number;
+        // 7. Формируем расписание ПО КЛАССАМ с учетом замен
+        $schedule = [];
 
-                // Инициализируем флаги
-                $lesson->is_replacement = false;
-                $lesson->replacementTeacherName = null;
-                $lesson->originalUserId = $lesson->user_id; // Сохраняем оригинальный ID для проверки "мой урок"
+        foreach ($classes as $class) {
+            $classSchedule = [];
 
-                if (isset($changesMap[$searchKey])) {
-                    $change = $changesMap[$searchKey];
+            // Получаем уроки для этого класса по названию
+            $classLessons = $schedules[$class->name] ?? collect();
 
-                    // Применяем данные замены
-                    if ($change->subject) {
-                        $lesson->subject = $change->subject->name;
+            for ($i = 1; $i <= 7; $i++) {
+                $lesson = $classLessons->firstWhere('number', $i);
+
+                if ($lesson) {
+                    // Инициализируем флаги
+                    $lesson->is_replacement = false;
+                    $lesson->replacementTeacherName = null;
+                    $lesson->replacementUserId = null;
+                    $lesson->originalUserId = $lesson->user_id;
+
+                    // Проверяем замены по school_class_id и номеру урока
+                    $searchKey = $class->id . '_' . $i;
+
+                    if (isset($changesMap[$searchKey])) {
+                        $change = $changesMap[$searchKey];
+
+                        // Применяем данные замены
+                        if ($change->subject) {
+                            $lesson->subject = $change->subject;
+                        }
+                        if ($change->cabinet) {
+                            $lesson->cabinet = $change->cabinet;
+                        }
+
+                        // Учитель замены
+                        if ($change->teacher) {
+                            $lesson->replacementTeacherName = $change->teacher->name;
+                            $lesson->replacementUserId = $change->teacher->id;
+                        }
+
+                        $lesson->is_replacement = true;
                     }
-                    if ($change->cabinet) {
-                        $lesson->cabinet = $change->cabinet;
-                    }
 
-                    // Самое важное: учитель
-                    if ($change->teacher) {
-                        $lesson->replacementTeacherName = $change->teacher->name; // Или name, full_name - зависит от вашей модели User
-                        // Для подсветки "своего" урока при замене, нужно сравнить ID заменяющего учителя с auth()->id()
-                        $lesson->replacementUserId = $change->teacher->id;
-                    }
-
-                    $lesson->is_replacement = true;
+                    $classSchedule[$i] = $lesson;
+                } else {
+                    $classSchedule[$i] = null;
                 }
             }
 
-            $schedule[$i] = $lessons;
+            $schedule[$class->id] = $classSchedule;
         }
 
         $notifications = Notification::query()->orderByDesc('created_at')->limit(2)->get();
-        $classes = SchoolClass::all()->sortBy(function($class) {
-            preg_match('/^\d+/', $class->name, $matches);
-            return $matches[0] ?? 0;
-        })->values();
 
         return view('home', [
             'events' => $events,

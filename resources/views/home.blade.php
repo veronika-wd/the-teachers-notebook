@@ -53,6 +53,7 @@
                         Перейти к общему расписанию
                     </a>
                 </div>
+
                 <div class="shedule-table">
                     <table>
                         <thead>
@@ -63,46 +64,48 @@
                         </tr>
                         </thead>
                         <tbody>
-                        @foreach($shedule as $number => $item)
-                        <tr>
+                        @for($number = 1; $number <= 7; $number++)
+                            <tr>
+                                @foreach($classes as $class)
+                                    @php
+                                        $subject = $shedule[$class->id][$number] ?? null;
+                                        $isMyLesson = false;
+                                        $teacherText = '—';
+                                        $isReplacement = false;
 
-                            @foreach($item as $subject)
-                                @php
-                                    $isMyLesson = false;
-
-                                    if ($subject->is_replacement) {
-                                        // Если замена, проверяем ID нового учителя
-                                        if (isset($subject->replacementUserId) && $subject->replacementUserId == auth()->user()->id) {
-                                            $isMyLesson = true;
+                                        if ($subject) {
+                                            if ($subject->is_replacement) {
+                                                if (isset($subject->replacementUserId) && $subject->replacementUserId == auth()->user()->id) {
+                                                    $isMyLesson = true;
+                                                }
+                                                $teacherText = $subject->replacementTeacherName ?? '—';
+                                                $isReplacement = true;
+                                            } else {
+                                                if ($subject->user_id == auth()->user()->id) {
+                                                    $isMyLesson = true;
+                                                }
+                                                $teacherText = $subject->teacher->name ?? '—';
+                                            }
                                         }
-                                    } else {
-                                        // Если без замены, проверяем штатного учителя
-                                        if ($subject->user_id == auth()->user()->id) {
-                                            $isMyLesson = true;
-                                        }
-                                    }
+                                    @endphp
 
-                                    $teacherText = '';
-                                    if ($subject->is_replacement && $subject->replacementTeacherName) {
-                                        $teacherText = $subject->replacementTeacherName;
-                                    } else {
-                                        $teacherText = $subject->teacher->name ?? '—';
-                                    }
-                                @endphp
-
-                                <td class="{{ $isMyLesson ? 'users-lesson' : '' }} {{ $subject->is_replacement ? 'bg-warning' : '' }}">
-                                    <div>{{ $subject->subject->name }}</div>
-                                    <small>{{ $subject->cabinet }}</small>
-                                    <div style="color: #666; font-size: 0.8em;">
-                                        {{ $teacherText }}
-                                        @if($subject->is_replacement)
-                                            <span style="color:red;">(зам.)</span>
+                                    <td class="{{ $isMyLesson ? 'users-lesson' : '' }} {{ $isReplacement ? 'bg-warning' : '' }}">
+                                        @if($subject)
+                                            <div>{{ $subject->subject->name ?? '—' }}</div>
+                                            <small>{{ $subject->cabinet ?? '—' }}</small>
+                                            <div style="color: #666; font-size: 0.8em;">
+                                                {{ $teacherText }}
+                                                @if($isReplacement)
+                                                    <span style="color:red;">(зам.)</span>
+                                                @endif
+                                            </div>
+                                        @else
+                                            <div>—</div>
                                         @endif
-                                    </div>
-                                </td>
-                            @endforeach
-                        </tr>
-                        @endforeach
+                                    </td>
+                                @endforeach
+                            </tr>
+                        @endfor
                         </tbody>
                     </table>
                 </div>
