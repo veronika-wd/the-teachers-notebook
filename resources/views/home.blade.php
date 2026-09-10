@@ -91,7 +91,7 @@
                                 @endphp
 
                                 <td class="{{ $isMyLesson ? 'users-lesson' : '' }} {{ $subject->is_replacement ? 'bg-warning' : '' }}">
-                                    <div>{{ $subject->subject }}</div>
+                                    <div>{{ $subject->subject->name }}</div>
                                     <small>{{ $subject->cabinet }}</small>
                                     <div style="color: #666; font-size: 0.8em;">
                                         {{ $teacherText }}
