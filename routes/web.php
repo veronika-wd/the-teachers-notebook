@@ -137,7 +137,7 @@ Route::middleware(['auth'])->group(function () {
 
     Route::post('/classes/create', [RegisterController::class, 'createClass'])->name('classes.store');
     Route::delete('/classes/{class}', [RegisterController::class, 'deleteClass'])->name('classes.destroy');
-
+    Route::delete('/{change}', [ScheduleController::class, 'destroyChange'])->name('change.destroy');
 });
 
 // Страница со списком классов + ссылки на кружки

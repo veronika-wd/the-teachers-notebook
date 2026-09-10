@@ -297,4 +297,11 @@ class ScheduleController extends Controller
             return back()->withErrors(['error' => 'Ошибка при очистке: ' . $e->getMessage()]);
         }
     }
+
+    public function destroyChange(Change $change)
+    {
+        $change->delete();
+
+        return redirect()->back();
+    }
 }

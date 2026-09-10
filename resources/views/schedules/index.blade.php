@@ -57,6 +57,7 @@
             <th>Кабинет</th>
             <th>Номер</th>
             <th>Дата</th>
+            <th>Действия</th>
         </tr>
         </thead>
         <tbody>
@@ -67,6 +68,13 @@
                 <td>{{ $change->cabinet }}</td>
                 <td>{{ $change->number }}</td>
                 <td>{{ $change->date }}</td>
+                <td>
+                    <form action="{{ route('change.destroy', $change) }}" method="post">
+                        @csrf
+                        @method('DELETE')
+                        <button type="submit" class="btn btn-danger" onclick="return confirm('Удалить запись об изменениях в расписании?')">Удалить</button>
+                    </form>
+                </td>
             </tr>
         @endforeach
         </tbody>
