@@ -168,24 +168,33 @@ class ScheduleController extends Controller
     {
         $inputSchedule = $request->input('schedule');
         $action        = $request->input('action');
+        $deleteCells   = $request->input('delete_cells');
 
         if (!$inputSchedule || !is_array($inputSchedule)) {
             return back()->withErrors(['error' => 'Нет данных расписания для сохранения.']);
         }
 
-        // ID класса по его ID: [ 1 => '1', 2 => '5 Б', ... ]
         $classNames = SchoolClass::pluck('name', 'id')->toArray();
 
         DB::beginTransaction();
         try {
             if ($action === 'full_replace') {
-                $deletedCount = Schedule::query()->delete();
-                Log::info("ПОЛНАЯ ЗАМЕНА: Удалено старых записей: {$deletedCount}");
+                Schedule::query()->delete();
                 $this->insertSchedule($inputSchedule, $classNames);
                 $message = "✅ Расписание полностью заменено!";
             } else {
-                $updatedCount = $this->upsertSchedule($inputSchedule, $classNames);
-                $message = "✅ Изменения сохранены! Обновлено/добавлено: {$updatedCount} записей";
+                // Сначала удаляем отмеченные ячейки
+                if ($deleteCells) {
+                    $cellsArray = json_decode($deleteCells, true);
+                    if (is_array($cellsArray) && !empty($cellsArray)) {
+                        $this->deleteMarkedCells($cellsArray, $classNames);
+                    }
+                }
+
+                // Затем обновляем/добавляем остальные
+                $this->upsertSchedule($inputSchedule, $classNames);
+
+                $message = "✅ Изменения сохранены!";
             }
 
             DB::commit();
@@ -194,10 +203,32 @@ class ScheduleController extends Controller
         } catch (\Exception $e) {
             DB::rollBack();
             Log::error("Ошибка сохранения расписания: " . $e->getMessage());
+            Log::error($e->getTraceAsString());
 
             return back()
                 ->withErrors(['error' => 'Ошибка: ' . $e->getMessage()])
                 ->withInput();
+        }
+    }
+
+    private function deleteMarkedCells($cellsArray, $classNames)
+    {
+        foreach ($cellsArray as $cellKey) {
+            $parts = explode('-', $cellKey);
+            if (count($parts) !== 3) continue;
+
+            [$classId, $lessonIndex, $dayNum] = $parts;
+
+            if (!isset($classNames[$classId])) continue;
+
+            $className = $classNames[$classId];
+            $lessonNumber = (int)$lessonIndex + 1;
+            $day = (int)$dayNum;
+
+            Schedule::where('class', $className)
+                ->where('day', $day)
+                ->where('number', $lessonNumber)
+                ->delete();
         }
     }
 

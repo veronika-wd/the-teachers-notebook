@@ -27,12 +27,15 @@
 
         <div class="alert alert-info mb-4">
             <strong>💡 Подсказка:</strong>
-            Измените нужные уроки и нажмите "Сохранить изменения" (обновит только измененные ячейки).
-            Или нажмите "Заменить полностью" для полной перезаписи расписания.
+            Измените нужные уроки и нажмите "Сохранить изменения".
+            Чтобы удалить урок, выберите пустой предмет и нажмите кнопку 🗑️ рядом с ячейкой.
         </div>
 
         <form action="{{ route('schedule.replace') }}" method="POST" id="scheduleForm">
             @csrf
+
+            {{-- Скрытое поле для удаления ячеек --}}
+            <input type="hidden" name="delete_cells" id="deleteCells" value="">
 
             {{-- Табы классов --}}
             <ul class="nav nav-tabs mb-3" id="classTabs" role="tablist">
@@ -73,7 +76,6 @@
                                             @php
                                                 $currentData = $currentSchedule[$class->id]['lessons'][$idx][$dayNum] ?? [];
 
-                                                // ✅ subject_id теперь числовой ID — сравниваем корректно
                                                 $subjectId = old(
                                                     "schedule.{$class->id}.{$idx}.{$dayNum}.subject_id",
                                                     $currentData['subject_id'] ?? ''
@@ -86,13 +88,18 @@
                                                     "schedule.{$class->id}.{$idx}.{$dayNum}.cabinet",
                                                     $currentData['cabinet'] ?? ''
                                                 );
+
+                                                // Проверяем, есть ли данные в этой ячейке
+                                                $hasData = !empty($subjectId) || !empty($userId) || !empty($cabinet);
                                             @endphp
 
-                                            <td class="p-1" style="min-width: 150px;">
+                                            <td class="p-1 position-relative" style="min-width: 150px;"
+                                                id="cell-{{ $class->id }}-{{ $idx }}-{{ $dayNum }}">
 
                                                 {{-- Выбор предмета --}}
                                                 <select name="schedule[{{ $class->id }}][{{ $idx }}][{{ $dayNum }}][subject_id]"
-                                                        class="form-select form-select-sm mb-1">
+                                                        class="form-select form-select-sm mb-1"
+                                                        onchange="checkCellHasData(this)">
                                                     <option value="">Предмет</option>
                                                     @foreach($subjects as $subj)
                                                         <option value="{{ $subj->id }}"
@@ -104,7 +111,8 @@
 
                                                 {{-- Выбор учителя --}}
                                                 <select name="schedule[{{ $class->id }}][{{ $idx }}][{{ $dayNum }}][user_id]"
-                                                        class="form-select form-select-sm mb-1">
+                                                        class="form-select form-select-sm mb-1"
+                                                        onchange="checkCellHasData(this)">
                                                     <option value="">Учитель</option>
                                                     @foreach($teachers as $teacher)
                                                         <option value="{{ $teacher->id }}"
@@ -119,7 +127,18 @@
                                                        name="schedule[{{ $class->id }}][{{ $idx }}][{{ $dayNum }}][cabinet]"
                                                        class="form-control form-control-sm"
                                                        placeholder="Каб."
-                                                       value="{{ $cabinet }}">
+                                                       value="{{ $cabinet }}"
+                                                       onchange="checkCellHasData(this)">
+                                                {{-- Кнопка удаления (показывается только если есть данные) --}}
+                                                @if($hasData)
+                                                    <button type="button"
+                                                            class="btn btn-outline-danger delete-cell-btn w-100 mt-2"
+                                                            style="top: 2px; right: 2px; z-index: 10; padding: 2px 6px; font-size: 12px;"
+                                                            onclick="markCellForDelete({{ $class->id }}, {{ $idx }}, {{ $dayNum }})"
+                                                            title="Удалить урок">
+                                                        Очистить
+                                                    </button>
+                                                @endif
                                             </td>
                                         @endforeach
                                     </tr>
@@ -168,19 +187,105 @@
         </form>
     </div>
 
-    @push('scripts')
-        <script>
-            document.querySelectorAll('#scheduleForm button[type="submit"]').forEach(btn => {
-                btn.addEventListener('click', function() {
-                    document.querySelectorAll('#scheduleForm button').forEach(b => {
-                        b.disabled = true;
-                        if (b.classList.contains('btn-success') || b.classList.contains('btn-primary')) {
-                            b.dataset.originalText = b.innerHTML;
-                            b.innerHTML = '<span class="spinner-border spinner-border-sm me-2"></span> Сохранение...';
-                        }
-                    });
+    <script>
+        // Массив для хранения ячеек, которые нужно удалить
+        let cellsToDelete = [];
+
+        /**
+         * Отметить ячейку для удаления
+         */
+        function markCellForDelete(classId, lessonIndex, dayNum) {
+            const cellKey = `${classId}-${lessonIndex}-${dayNum}`;
+
+            if (!cellsToDelete.includes(cellKey)) {
+                cellsToDelete.push(cellKey);
+
+                // Визуально помечаем ячейку
+                const cell = document.getElementById(`cell-${classId}-${lessonIndex}-${dayNum}`);
+                if (cell) {
+                    cell.style.backgroundColor = '#ffe6e6';
+                    cell.style.opacity = '0.6';
+                }
+
+                // Очищаем поля в ячейке
+                clearCellFields(classId, lessonIndex, dayNum);
+
+                updateDeleteField();
+            }
+        }
+
+        /**
+         * Очистить все поля в ячейке
+         */
+        function clearCellFields(classId, lessonIndex, dayNum) {
+            const subjectSelect = document.querySelector(`select[name="schedule[${classId}][${lessonIndex}][${dayNum}][subject_id]"]`);
+            const teacherSelect = document.querySelector(`select[name="schedule[${classId}][${lessonIndex}][${dayNum}][user_id]"]`);
+            const cabinetInput = document.querySelector(`input[name="schedule[${classId}][${lessonIndex}][${dayNum}][cabinet]"]`);
+
+            if (subjectSelect) subjectSelect.value = '';
+            if (teacherSelect) teacherSelect.value = '';
+            if (cabinetInput) cabinetInput.value = '';
+
+            // Удаляем кнопку удаления
+            const deleteBtn = document.querySelector(`#cell-${classId}-${lessonIndex}-${dayNum} .delete-cell-btn`);
+            if (deleteBtn) deleteBtn.remove();
+        }
+
+        /**
+         * Обновить скрытое поле с списком ячеек для удаления
+         */
+        function updateDeleteField() {
+            document.getElementById('deleteCells').value = JSON.stringify(cellsToDelete);
+        }
+
+        /**
+         * Проверить, есть ли данные в ячейке
+         */
+        function checkCellHasData(element) {
+            const td = element.closest('td');
+            const selects = td.querySelectorAll('select');
+            const input = td.querySelector('input[type="number"]');
+
+            const hasSubject = selects[0] && selects[0].value !== '';
+            const hasTeacher = selects[1] && selects[1].value !== '';
+            const hasCabinet = input && input.value !== '';
+
+            const hasData = hasSubject || hasTeacher || hasCabinet;
+
+            const cellId = td.id;
+            const match = cellId.match(/cell-(\d+)-(\d+)-(\d+)/);
+
+            if (match) {
+                const [, classId, lessonIndex, dayNum] = match;
+                const cellKey = `${classId}-${lessonIndex}-${dayNum}`;
+
+                if (!hasData && !cellsToDelete.includes(cellKey)) {
+                    td.style.backgroundColor = '';
+                    td.style.opacity = '';
+                }
+            }
+        }
+
+        // Обработчик отправки формы
+        document.addEventListener('DOMContentLoaded', function() {
+            const form = document.getElementById('scheduleForm');
+
+            if (form) {
+                form.addEventListener('submit', function(e) {
+                    // Обновляем поле перед отправкой
+                    updateDeleteField();
+
+                    // Блокируем кнопки ПОСЛЕ начала отправки
+                    setTimeout(() => {
+                        form.querySelectorAll('button').forEach(b => {
+                            b.disabled = true;
+                            if (b.classList.contains('btn-success') || b.classList.contains('btn-primary')) {
+                                b.innerHTML = '<span class="spinner-border spinner-border-sm me-2"></span> Сохранение...';
+                            }
+                        });
+                    }, 100);
                 });
-            });
-        </script>
-    @endpush
+            }
+        });
+    </script>
 @endsection
