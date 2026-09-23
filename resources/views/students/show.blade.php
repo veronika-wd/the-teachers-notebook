@@ -44,7 +44,7 @@
         </div>
         <div class="col-sm-12 col-lg-2">
             <div>
-                <h4>Класс: {{ $student->class }}</h4>
+                <h4>Класс: {{ $student->schoolClass->name }}</h4>
             </div>
         </div>
         <div class="col-sm-12 col-lg-4">
