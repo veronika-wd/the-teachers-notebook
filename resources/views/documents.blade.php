@@ -7,6 +7,7 @@
                 <!-- Заголовок страницы -->
                 <h2>Документы</h2>
                 <hr>
+                <a href="{{ route('programs.index') }}" class="btn btn--primary">Рабочие программы</a>
                 <!-- Сообщения об успехе/ошибке -->
                 @if(session('success'))
                     <div class="alert alert-success alert-dismissible fade show" role="alert">

@@ -12,6 +12,7 @@ use App\Http\Controllers\HomeController;
 use App\Http\Controllers\LoginController;
 use App\Http\Controllers\NotificationController;
 use App\Http\Controllers\PlanController;
+use App\Http\Controllers\ProgramController;
 use App\Http\Controllers\QualificationController;
 use App\Http\Controllers\QuizController;
 use App\Http\Controllers\RegisterController;
@@ -127,6 +128,10 @@ Route::middleware(['auth'])->group(function () {
         Route::get('/{document}/download', [DocumentController::class, 'download'])->name('documents.download');
     });
     Route::post('/add-plan', [PlanController::class, 'addPlan'])->name('plan');
+
+    Route::get('/programs', [ProgramController::class, 'index'])->name('programs.index');
+    Route::post('/programs', [ProgramController::class, 'store'])->name('programs.store');
+    Route::delete('/programs/{program}', [ProgramController::class, 'destroy'])->name('programs.destroy');
 
     Route::get('/schedule/replace', [ScheduleController::class, 'showReplaceForm'])->name('schedule.replace.form');
     Route::post('/schedule/replace', [ScheduleController::class, 'replace'])->name('schedule.replace');
