@@ -30,6 +30,9 @@
                 <div class="col-sm-12 col-lg-4">
                     <button id="orderBySurname" class="btn btn--primary w-100">Сортировать по фамилии</button>
                 </div>
+                <div class="col-sm-12 col-lg-4">
+                    <button id="excelTable" class="btn btn-success w-100">Скачать таблицу</button>
+                </div>
                 <p id="countData"></p>
             </div>
 
@@ -38,5 +41,7 @@
     <div id="database-table"></div>
 
     <script src="https://unpkg.com/tabulator-tables@5.5.2/dist/js/tabulator.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/exceljs/4.4.0/exceljs.min.js" integrity="sha512-dlPw+ytv/6JyepmelABrgeYgHI0O+frEwgfnPdXDTOIZz+eDgfW07QXG02/O8COfivBdGNINy+Vex+lYmJ5rxw==" crossorigin="anonymous" referrerpolicy="no-referrer"></script>
+    <script src="{{ asset('scripts/excel.js') }}"></script>
     <script src="{{ asset('scripts/database.js') }}"></script>
 @endsection
