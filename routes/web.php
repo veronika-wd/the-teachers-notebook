@@ -93,7 +93,7 @@ Route::middleware(['auth'])->group(function () {
         Route::get('/{class}', [AttendanceController::class, 'show'])->name('attendance.show');
         Route::post('/{class}', [AttendanceController::class, 'store'])->name('attendance.store');
         Route::post('/{class}/payment', [AttendanceController::class, 'storePayment'])->name('attendance.payment.store');
-        Route::delete('/{class}/delete', [AttendanceController::class, 'deletePayment'])->name('attendance.payment.delete');
+        Route::delete('/{payment}/delete', [AttendanceController::class, 'deletePayment'])->name('attendance.payment.delete');
     });
     Route::prefix('qualifications')->group(function () {
         Route::get('/', [QualificationController::class, 'index'])->name('qualifications.index');

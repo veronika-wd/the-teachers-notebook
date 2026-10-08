@@ -39,7 +39,7 @@ class AttendanceController extends Controller
         return redirect()->back()->with('payment_success', 'Платеж успешно добавлен!');
     }
 
-    public function deletePayment(SchoolClass $class, Payment $payment)
+    public function deletePayment(Payment $payment)
     {
         $payment->delete();
         return redirect()->back()->with('payment_deleted', 'Платеж удален!');
